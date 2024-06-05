@@ -10,7 +10,7 @@ Dataset: Cullin4-Ubiquitin ligase + SAMHD1 + Vpr [citation](https://journals.plo
 ### From raw data to crosslinks
 Open xiSEARCH. 
 
-In the files tab, load peak files (recal*.mgf files) and sequence files and select an output name.
+In the files tab, load peak files (recal*.mgf files) and sequence file (complex.fasta) and select an output name.
 
 In the settings tab, tick on "multiple crosslinkers" and select SDA and non-covalent, deselect BS3. Why is that? [citation](https://pubs.acs.org/doi/epdf/10.1021/acs.analchem.8b04037)
 
@@ -22,11 +22,17 @@ Tick "Do FDR" and keep threshold to 2% at the residue pair level, boosting heter
 
 This is a very simplified "how to" guide, but there is a lot of complexity to this. In particular, the size of the database may need to be adjusted to include contaminants, and the FDR settings may need to be tweaked in order to have enough targets and decoys to properly model the noise and to do a proper statistical control of the results.
 
-[documentation here]()
+[documentation for the search engine here](https://github.com/Rappsilber-Laboratory/xisearch)
+
+[documentation for FDR estimation engine here](https://github.com/Rappsilber-Laboratory/xifdr)
 
 ### analyze crosslinking MS dataset on xiview.org
 
-Open the dataset in the xiview.org interactive viewer [here](https://xiview.org/network.php?upload=27449-11563-41954-87027-74439). You can expand each protein with the right click of the mouse to see where the crosslinks are localised on the sequence.
+Create your own account in xiview.org and upload the results, or else proceed with the pregenerated dataset as below.
+
+Open the dataset in the xiview.org interactive viewer [here](https://xiview.org/network.php?upload=27449-11563-41954-87027-74439). You can expand each protein with the right click of the mouse to see where the crosslinks are localised on the sequence. 
+
+Crosslinks may also be visualised in the circle plot, accessible from "views"... "circular"
 
 At the bottom of the viewer, you have several toggles:
 
@@ -75,14 +81,15 @@ Using the box to select "frac6" and "frac9", check out if there is a difference 
 
 What consequences does this have for experimental design?
 
-In the uplad tab, go to "sequence metadata" and upload the file XXX.csv. In the "annotation" tab at the top, toggle annotations on. You should now see domains highlighted on the sequence. 
+In the upload tab, go to "sequence annotations  " and upload the file XXX.csv. In the "annotation" tab at the top, toggle annotations on. You should now see domains highlighted on the sequence. 
 
-In this case, we used a custom sequence annotation file, as our proteins are recombinant and we searched with an in-house sequence file containing the tags. For proteins with uniprot IDs in the sequence file headers, xiview will automatically download this information from uniprot.
+In this case, we used a custom sequence annotation file (sequence_annotations.csv), as our proteins are recombinant and we searched with an in-house sequence file containing the tags. For proteins with uniprot IDs in the sequence file headers, xiview will automatically download this information from uniprot.
+
 
 #### Working with PDB files
 Upload the file "state-3_fit_chains.pdb" from the course package. in view, select the 3d viewer. In the "annotation" tab at the top, toggle off the domains and select "PDB aligned region". What do you notice? Which protein is missing from the experimental structure?
 
-Let's look at the 3d structure now. To check if the crosslinks are satisfied by this model, open "view", "legends and colors" and then color the crosslinks by distance. Let's set satisfied up to 25 angstrom, borderline 25-30 and violated over 30 angstrom. Go back to the 3d viewer. What do you see? You can also toggle between all crosslinks and heteromeric only.
+Let's look at the 3d structure now. To check if the crosslinks are satisfied by this model, open "view", "legends and colors" and then color the crosslinks by distance. Let's set satisfied up to 25 angstrom, borderline 25-30 and violated over 30 angstrom. Go back to the 3d viewer. What do you see? You can also toggle between all crosslinks and heteromeric only. Monitor the distances on the circle plot.
 
 For a more quantitative overview, check the histogram tab and plot by distance, or the scatterplot tab and plot crosslink score vs distance.
 
