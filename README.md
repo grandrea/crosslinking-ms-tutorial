@@ -1,20 +1,20 @@
 ## Crosslinking MS tutorial- crosslink visualization
 #### EMBO course Grenoble June 2024
 
-Dataset: Cullin4-Ubiquitin ligase + SAMHD1 + Vpr [citation]() . The crosslinker is sulfo-SDA and it is searched from K,S,T,Y,nterm to any amino acid.
+Dataset: Cullin4-Ubiquitin ligase + SAMHD1 + Vpr [citation](https://journals.plos.org/plospathogens/article?id=10.1371/journal.ppat.1009775) . The crosslinker is sulfo-SDA and it is searched from K,S,T,Y,nterm to any amino acid.
 
 ### First part - analyze crosslinking MS dataset on xiview.org
 
-Open the dataset in the xiview.org interactive viewer [here](). You can expand each protein with the right click of the mouse to see where the crosslinks are localised on the sequence.
+Open the dataset in the xiview.org interactive viewer [here](https://xiview.org/network.php?upload=27449-11563-41954-87027-74439). You can expand each protein with the right click of the mouse to see where the crosslinks are localised on the sequence.
 
 At the bottom of the viewer, you have several toggles:
 
 - self/heteromeric: toggle crosslinks within protein sequences or between protein sequences on or off. As the experimnt is peptide based, a "self" link can also be between multiple copies of the same protein
 - overlap/non-overlap: toggle crosslinks that are self but between multiple copies of the same protein (not relevant here)
-- filter boxes: filter by protein name, run name, and so on
 - Score: crosslink score. This is an arbitrary number specific to each search engine. The higher, the better- a greater number indicates a better quality of peptide-spectrum match. This slider should be used for visualization purposes only. A key property of FDR control is that the results after FDR control are not further subsettable, or else the FDR becomes unknowable. For a more stringent dataset, repeat the FDR procedure with a tighter threshold.
 - Distance: Filter by distance once a PDB is uploaded to the session.
-- Residue pairs per PPI: filter the network so that only protein pairs with more than X crosslinks are displayed.
+- Residue pairs per PPI: filter the network so that only protein pairs with more than X crosslinks are displayed
+- filter boxes: filter by peptide sequence, protein name, description. On the right also boxes for  run name and scan number.
 
 Top panel includes tabs for uploading various files, including PDB files, and for analysing crosslink data.
 
@@ -22,7 +22,7 @@ Top panel includes tabs for uploading various files, including PDB files, and fo
 All run files for the experiments with low SDA concentrations are called "Ratio24". The ones with the high SDA concentrations are called "Ratio56". Using the filters, take a look at how many crosslinks and how many heteromeric crosslinks correspond to either condition.
 
 #### Viewing spectra
-Let's get an idea for what crosslinked peptide spectra look like. In the scan box, select scan XXX. From the dropdown menu at the top, select view-> spectrum.
+Let's get an idea for what crosslinked peptide spectra look like. In the scan box, select scan 7144 and select the resulting crosslink. From the dropdown menu at the top, select views-> spectrum.
 
 Take a moment to familiarize yourself with the viewer. At the top of the spectral window you see the error in matching the precursor (whole peptide) and its mass and charge state. 
 
@@ -32,9 +32,13 @@ Sometimes for this crosslinker, the exact crosslink site is not known as backbon
 
 You can check how the spectrum would look with a different assignment by moving the crosslink site with a mouse. For more radical reannotations, you can click on the wheel and change the sequence or enter custom annotation commands.
 
-The group of Andrea Sinz [has observed]() that diazirine crosslinkers such as sulfo-sda may cleave in the gas phase. We can check if this has happened here by introducing a custom annotation for it. 
+The group of Andrea Sinz [has observed](https://pubs.acs.org/doi/10.1021/acs.analchem.7b04915) that diazirine crosslinkers such as sulfo-sda may cleave in the gas phase. We can check if this has happened here by introducing a custom annotation for it. 
 
-Inside the spectral viewer, click the wheel and then the "custom" tab, copy the following line, that accounts for a cleavable crosslinker, and click "apply".
+Inside the spectral viewer, click the wheel and then the "custom" tab, copy the following line
+
+    crosslinker:AsymetricSingleAminoAcidRestrictedCrossLinker:Name:SDA;MASS:82.04186484;FIRSTLINKEDAMINOACIDS:*;SECONDLINKEDAMINOACIDS:K,S,T,Y,nterm;STUBS:A,82.041864,S,0
+
+that accounts for a cleavable crosslinker, and click "apply".
 
 
 Is this annotation better than the previous one? click "butterfly" at the top of the viewer to check.
@@ -50,12 +54,12 @@ Using the box to select "frac6" and "frac9", check out if there is a difference 
 
 What consequences does this have for experimental design?
 
-In the uplad tab, go to "sequence metadata" and upload the file XXX.csv. In the "annotation" tab at the top, toggle annotations on. You should now see domais highlighted on the sequence. 
+In the uplad tab, go to "sequence metadata" and upload the file XXX.csv. In the "annotation" tab at the top, toggle annotations on. You should now see domains highlighted on the sequence. 
 
 In this case, we used a custom sequence annotation file, as our proteins are recombinant and we searched with an in-house sequence file containing the tags. For proteins with uniprot IDs in the sequence file headers, xiview will automatically download this information from uniprot.
 
 #### Working with PDB files
-Upload the file "state 3.pdb" from the course package. in view, select the 3d viewer. In the "annotation" tab at the top, toggle off the domains and select "PDB aligned region". What do you notice? Which protein is missing from the experimental structure?
+Upload the file "state-3_fit_chains.pdb" from the course package. in view, select the 3d viewer. In the "annotation" tab at the top, toggle off the domains and select "PDB aligned region". What do you notice? Which protein is missing from the experimental structure?
 
 Let's look at the 3d structure now. To check if the crosslinks are satisfied by this model, open "view", "legends and colors" and then color the crosslinks by distance. Let's set satisfied up to 25 angstrom, borderline 25-30 and violated over 30 angstrom. Go back to the 3d viewer. What do you see? You can also toggle between all crosslinks and heteromeric only.
 
@@ -67,3 +71,24 @@ For a more quantitative overview, check the histogram tab and plot by distance, 
 Select SAMHD1 crosslinks in the protein selection box, and toggle off self links.
 
 Go back to the 3d viewer and toggle the display to "residues with half links" from the dropdown menu.
+
+#### Flexibility
+Within the 3d viewer, you can upload the 3 different PDBs and check the distance of critical crosslinks.
+
+To work with crosslinking data in chimerax, one can export the links from the 3d viewer by clicking on 3d export.. chimerax pseudobond file.
+
+To work directly in chimerax, you can instead use the X-MAS plugin. X-MAS is a plugin by the Scheltema group [citation]()
+
+Open chimerax and load the session.cxs from the course package.
+
+Go to tools... more tools and install x-mas plugin.
+
+Go to tools.. structure analysis... XMAS. In the tool, click on "import files". Navigate to results files and load the "peptide pairs" file. Select State 2 pdb and map crosslinks.
+
+Click on "visualize". You can color by distance here, or export to other programs like DisVis for mapping patches and similar.
+
+To remove dashes, you set dashes to 0 inside X-mas or use the command
+
+    style pbonds dashes 0
+
+The advantage of working in chimerax is that you may load densities at the same time, as well as take advantage of much powerful visualization options.
