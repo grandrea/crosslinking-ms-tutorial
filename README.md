@@ -49,3 +49,16 @@ In the "Histogram" and "scatterplot sections of the view, several properties of 
 Using the box to select "frac6" and "frac9", check out if there is a difference in number of crosslinks, charge state and precursor mass of earlier chromatographic fractions and latter ones.
 
 What consequences does this have for experimental design?
+
+In the uplad tab, go to "sequence metadata" and upload the file XXX.csv. In the "annotation" tab at the top, toggle annotations on. You should now see domais highlighted on the sequence. 
+
+In this case, we used a custom sequence annotation file, as our proteins are recombinant and we searched with an in-house sequence file containing the tags. For proteins with uniprot IDs in the sequence file headers, xiview will automatically download this information from uniprot.
+
+#### Working with PDB files
+Upload the file "state 3.pdb" from the course package. in view, select the 3d viewer. In the "annotation" tab at the top, toggle off the domains and select "PDB aligned region". What do you notice? Which protein is missing from the experimental structure?
+
+Let's look at the 3d structure now. To check if the crosslinks are satisfied by this model, open "view", "legends and colors" and then color the crosslinks by distance. Let's set satisfied up to 25 angstrom, borderline 25-30 and violated over 30 angstrom. Go back to the 3d viewer. What do you see? You can also toggle between all crosslinks and heteromeric only.
+
+For a more quantitative overview, check the histogram tab and plot by distance, or the scatterplot tab and plot crosslink score vs distance.
+
+#### Exporting to other programs
