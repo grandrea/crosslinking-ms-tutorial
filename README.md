@@ -3,7 +3,25 @@
 
 Dataset: Cullin4-Ubiquitin ligase + SAMHD1 + Vpr [citation](https://journals.plos.org/plospathogens/article?id=10.1371/journal.ppat.1009775) . The crosslinker is sulfo-SDA and it is searched from K,S,T,Y,nterm to any amino acid.
 
-### First part - analyze crosslinking MS dataset on xiview.org
+
+### From raw data to crosslinks
+Open xiSEARCH. 
+
+In the files tab, load peak files (recal*.mgf files) and sequence files and select an output name.
+
+In the settings tab, tick on "multiple crosslinkers" and select SDA and non-covalent, deselect BS3. Why is that?
+
+Select number of threads, memory and set missed cleavages to 4.
+
+In variable modifications, deselect BS3 modifications and select SDA-loop and SDA-OH.
+
+Tick "Do FDR" and keep threshold to 2% at the residue pair level, boosting heteromeric crosslinks.
+
+This is a very simplified "how to" guide, but there is a lot of complexity to this. In particular, the size of the database may need to be adjusted to include contaminants, and the FDR settings may need to be tweaked in order to have enough targets and decoys to properly model the noise and to do a proper statistical control of the results.
+
+[documentation here]()
+
+### analyze crosslinking MS dataset on xiview.org
 
 Open the dataset in the xiview.org interactive viewer [here](https://xiview.org/network.php?upload=27449-11563-41954-87027-74439). You can expand each protein with the right click of the mouse to see where the crosslinks are localised on the sequence.
 
@@ -65,7 +83,7 @@ Let's look at the 3d structure now. To check if the crosslinks are satisfied by 
 
 For a more quantitative overview, check the histogram tab and plot by distance, or the scatterplot tab and plot crosslink score vs distance.
 
-### Second part - in-depth 3d analysis
+### In-depth 3d analysis
 
 #### Binding patch
 Select SAMHD1 crosslinks in the protein selection box, and toggle off self links.
