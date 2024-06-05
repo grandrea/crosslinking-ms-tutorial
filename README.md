@@ -61,4 +61,9 @@ Let's look at the 3d structure now. To check if the crosslinks are satisfied by 
 
 For a more quantitative overview, check the histogram tab and plot by distance, or the scatterplot tab and plot crosslink score vs distance.
 
-#### Exporting to other programs
+### Second part - in-depth 3d analysis
+
+#### Binding patch
+Select SAMHD1 crosslinks in the protein selection box, and toggle off self links.
+
+Go back to the 3d viewer and toggle the display to "residues with half links" from the dropdown menu.
