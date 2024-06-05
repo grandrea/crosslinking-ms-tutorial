@@ -114,4 +114,6 @@ The advantage of working in chimerax is that you may load densities at the same 
 ### Modeling
 Disvis. Check out DisVis [here](https://wenmr.science.uu.nl/disvis/) or, later, download the package and run locally, from [here](https://github.com/haddocking/disvis). DisVis calculates the volume of the positions of the center of mass of protein B consistent with N restraints stemming from protein A. In our case, we can position the SAMHD1 CTD against Vpr with it.
 
-AlphaLink. A modified version of AlphaFold 2 that pays attention to experimental crosslinks. Run via colab [here](https://colab.research.google.com/github/Rappsilber-Laboratory/AlphaLink2/blob/main/notebooks/alphalink2.ipynb). Citation [here](https://www.nature.com/articles/s41587-023-01704-z)
+AlphaLink. A modified version of AlphaFold 2 that pays attention to experimental crosslinks. Run via colab [here](https://colab.research.google.com/github/Rappsilber-Laboratory/AlphaLink2/blob/main/notebooks/alphalink2.ipynb). Citation [here](https://www.nature.com/articles/s41587-023-01704-z).
+
+Other programs include: [IMP](https://integrativemodeling.org/) (integrative modeling platform), [Assembline](https://www.embl-hamburg.de/Assembline/), [HADDOCK](https://wenmr.science.uu.nl/haddock2.4/) .
