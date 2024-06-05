@@ -9,7 +9,7 @@ Open xiSEARCH.
 
 In the files tab, load peak files (recal*.mgf files) and sequence files and select an output name.
 
-In the settings tab, tick on "multiple crosslinkers" and select SDA and non-covalent, deselect BS3. Why is that?
+In the settings tab, tick on "multiple crosslinkers" and select SDA and non-covalent, deselect BS3. Why is that? [citation](https://pubs.acs.org/doi/epdf/10.1021/acs.analchem.8b04037)
 
 Select number of threads, memory and set missed cleavages to 4.
 
@@ -95,7 +95,7 @@ Within the 3d viewer, you can upload the 3 different PDBs and check the distance
 
 To work with crosslinking data in chimerax, one can export the links from the 3d viewer by clicking on 3d export.. chimerax pseudobond file.
 
-To work directly in chimerax, you can instead use the X-MAS plugin. X-MAS is a plugin by the Scheltema group [citation]()
+To work directly in chimerax, you can instead use the X-MAS plugin. X-MAS is a plugin by the Scheltema group [citation](https://www.biorxiv.org/content/10.1101/2022.04.21.489026v2)
 
 Open chimerax and load the session.cxs from the course package.
 
@@ -110,3 +110,8 @@ To remove dashes, you set dashes to 0 inside X-mas or use the command
     style pbonds dashes 0
 
 The advantage of working in chimerax is that you may load densities at the same time, as well as take advantage of much powerful visualization options.
+
+### Modeling
+Disvis. Check out DisVis [here](https://wenmr.science.uu.nl/disvis/) or, later, download the package and run locally, from [here](https://github.com/haddocking/disvis). DisVis calculates the volume of the positions of the center of mass of protein B consistent with N restraints stemming from protein A. In our case, we can position the SAMHD1 CTD against Vpr with it.
+
+AlphaLink. A modified version of AlphaFold 2 that pays attention to experimental crosslinks. Run via colab [here](https://colab.research.google.com/github/Rappsilber-Laboratory/AlphaLink2/blob/main/notebooks/alphalink2.ipynb). Citation [here](https://www.nature.com/articles/s41587-023-01704-z)
