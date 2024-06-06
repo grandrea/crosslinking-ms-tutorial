@@ -123,6 +123,23 @@ To remove dashes, you set dashes to 0 inside X-mas or use the command
 
 The advantage of working in chimerax is that you may load densities at the same time, as well as take advantage of much powerful visualization options.
 
+### Modeling
+Disvis. Check out DisVis [here](https://wenmr.science.uu.nl/disvis/) or, later, download the package and run locally, from [here](https://github.com/haddocking/disvis). DisVis calculates the volume of the positions of the center of mass of protein B consistent with N restraints stemming from protein A. In our case, we can position the SAMHD1 CTD against Vpr with it.
+
+
+We can look at the results of a DisVis analysis in this case. I ran the program with to find the position of the center of mass of the C-terminus of SAMHD1 against the rest of the complex according to crosslinking MS data.
+
+Open an second instance of Chimerax. Loading "state3_loops_reordered_renum_rhesus_A.pdb" from the DisVis folder in the course package, and now open accessible_interaction_space.mrc .
+
+The threshold of this density is the number of crosslinking MS restraints consistent with a given volume.
+
+#### Other modeling approaches
+
+AlphaLink. A modified version of AlphaFold 2 that pays attention to experimental crosslinks. Run via colab [here](https://colab.research.google.com/github/Rappsilber-Laboratory/AlphaLink2/blob/main/notebooks/alphalink2.ipynb). Citation [here](https://www.nature.com/articles/s41587-023-01704-z).
+
+Other programs include: [IMP](https://integrativemodeling.org/) (integrative modeling platform), [Assembline](https://www.embl-hamburg.de/Assembline/), [HADDOCK](https://wenmr.science.uu.nl/haddock2.4/) .
+
+#### AlphaFold 3
 Finally, AlphaFold3 came out recently. Let's see how crosslinking MS looks with this. Load the alphafold model in chimerax or in xiview.org. 
 
 In chimerax, note the model number, and color it by local confidence
@@ -136,10 +153,3 @@ Is the supposed interaction area of Vpr-SAMHD1 in agreement with AlphaFold? Why 
     SAMHD1-Cul
 
 and so on for the other proteins Vpr, DDB1, DCAF and Roc1.
-
-### Modeling
-Disvis. Check out DisVis [here](https://wenmr.science.uu.nl/disvis/) or, later, download the package and run locally, from [here](https://github.com/haddocking/disvis). DisVis calculates the volume of the positions of the center of mass of protein B consistent with N restraints stemming from protein A. In our case, we can position the SAMHD1 CTD against Vpr with it.
-
-AlphaLink. A modified version of AlphaFold 2 that pays attention to experimental crosslinks. Run via colab [here](https://colab.research.google.com/github/Rappsilber-Laboratory/AlphaLink2/blob/main/notebooks/alphalink2.ipynb). Citation [here](https://www.nature.com/articles/s41587-023-01704-z).
-
-Other programs include: [IMP](https://integrativemodeling.org/) (integrative modeling platform), [Assembline](https://www.embl-hamburg.de/Assembline/), [HADDOCK](https://wenmr.science.uu.nl/haddock2.4/) .
