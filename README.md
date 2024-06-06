@@ -45,8 +45,10 @@ At the bottom of the viewer, you have several toggles:
 
 Top panel includes tabs for uploading various files, including PDB files, and for analysing crosslink data.
 
-#### Gathering statistics
-All run files for the experiments with low SDA concentrations are called "Ratio24". The ones with the high SDA concentrations are called "Ratio56". Using the filters, take a look at how many crosslinks and how many heteromeric crosslinks correspond to either condition.
+#### Gathering statistics and inspecting interactions
+All run files for the experiments with low SDA concentrations are called "Ratio24". The ones with the high SDA concentrations are called "Ratio56". Using the filters, take a look at how many crosslinks and how many heteromeric crosslinks correspond to either condition. What do you see?
+
+Open the circular view, and in the Name/acc selection box type Vpr. Which region of SAMHD1 interacts with Vpr? On the other hand, type SAMHD1? does the rest of its sequence have a specific interface with the rest of the complex? 
 
 #### Viewing spectra
 Let's get an idea for what crosslinked peptide spectra look like. In the scan box, select scan 7144 and select the resulting crosslink. From the dropdown menu at the top, select views-> spectrum.
@@ -120,6 +122,20 @@ To remove dashes, you set dashes to 0 inside X-mas or use the command
     style pbonds dashes 0
 
 The advantage of working in chimerax is that you may load densities at the same time, as well as take advantage of much powerful visualization options.
+
+Finally, AlphaFold3 came out recently. Let's see how crosslinking MS looks with this. Load the alphafold model in chimerax or in xiview.org. 
+
+In chimerax, note the model number, and color it by local confidence
+
+    color bfactor palette alphafold
+
+Map the crosslinks with Xmas, adjusting coloring and dashes. What do you see?
+
+Is the supposed interaction area of Vpr-SAMHD1 in agreement with AlphaFold? Why was the protein not observed in cryo-EM? What about Vpr on the main complex? You can select individual interfaces in the xiview viewer  by typing in the protein selection box
+
+    SAMHD1-Cul
+
+and so on for the other proteins Vpr, DDB1, DCAF and Roc1.
 
 ### Modeling
 Disvis. Check out DisVis [here](https://wenmr.science.uu.nl/disvis/) or, later, download the package and run locally, from [here](https://github.com/haddocking/disvis). DisVis calculates the volume of the positions of the center of mass of protein B consistent with N restraints stemming from protein A. In our case, we can position the SAMHD1 CTD against Vpr with it.
