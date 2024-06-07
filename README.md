@@ -12,7 +12,7 @@ Open xiSEARCH.
 
 In the files tab, load peak files (recal*.mgf files) and sequence file (complex.fasta) and select an output name.
 
-In the settings tab, tick on "multiple crosslinkers" and select SDA and non-covalent, deselect BS3. Why is that? [citation](https://pubs.acs.org/doi/epdf/10.1021/acs.analchem.8b04037)
+In the parameters tab, tick on "multiple crosslinkers" and select SDA and non-covalent, deselect BS3. Why is that? [citation](https://pubs.acs.org/doi/epdf/10.1021/acs.analchem.8b04037)
 
 Select number of threads, memory and set missed cleavages to 4.
 
@@ -30,7 +30,9 @@ This is a very simplified "how to" guide, but there is a lot of complexity to th
 
 Create your own account in xiview.org and upload the results, or else proceed with the pregenerated dataset as below.
 
-Open the dataset in the xiview.org interactive viewer [here](https://xiview.org/network.php?upload=27449-11563-41954-87027-74439). You can expand each protein with the right click of the mouse to see where the crosslinks are localised on the sequence. 
+Open the dataset in the xiview.org interactive viewer [here](https://xiview.org/network.php?upload=27449-11563-41954-87027-74439). 
+
+**You can expand each protein with the right click of the mouse to see where the crosslinks are localised on the sequence. Right click again and resize the protein to 0.2** 
 
 Crosslinks may also be visualised in the circle plot, accessible from "views"... "circular"
 
@@ -48,10 +50,10 @@ Top panel includes tabs for uploading various files, including PDB files, and fo
 #### Gathering statistics and inspecting interactions
 All run files for the experiments with low SDA concentrations are called "Ratio24". The ones with the high SDA concentrations are called "Ratio56". Using the filters, take a look at how many crosslinks and how many heteromeric crosslinks correspond to either condition. What do you see?
 
-Open the circular view, and in the Name/acc selection box type Vpr. Which region of SAMHD1 interacts with Vpr? On the other hand, type SAMHD1? does the rest of its sequence have a specific interface with the rest of the complex? 
+Go to views.. circular, and in the Name/acc selection box at the bottom of the page type Vpr. Which region of SAMHD1 interacts with Vpr? On the other hand, type SAMHD1? does the rest of its sequence have a specific interface with the rest of the complex? 
 
 #### Viewing spectra
-Let's get an idea for what crosslinked peptide spectra look like. In the scan box, select scan 7144 and select the resulting crosslink. From the dropdown menu at the top, select views-> spectrum.
+Let's get an idea for what crosslinked peptide spectra look like. In the scan box at the bottom right of the page, select scan 7144 and select the resulting crosslink. From the dropdown menu at the top, select views-> spectrum.
 
 Take a moment to familiarize yourself with the viewer. At the top of the spectral window you see the error in matching the precursor (whole peptide) and its mass and charge state. 
 
