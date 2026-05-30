@@ -1,10 +1,10 @@
 ## Crosslinking MS tutorial- crosslink visualization
-#### EMBO course Grenoble June 2024
+
 
 Dataset: Cullin4-Ubiquitin ligase + SAMHD1 + Vpr [citation](https://journals.plos.org/plospathogens/article?id=10.1371/journal.ppat.1009775) . The crosslinker is sulfo-SDA and it is searched from K,S,T,Y,nterm to any amino acid. The raw data is available [here](https://www.ebi.ac.uk/pride/archive/projects/PXD020453).
 
 
-![System](https://private-user-images.githubusercontent.com/44289027/337014006-ce5f4358-264f-43ab-a226-ef946a93de18.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3MTc2MjI0OTUsIm5iZiI6MTcxNzYyMjE5NSwicGF0aCI6Ii80NDI4OTAyNy8zMzcwMTQwMDYtY2U1ZjQzNTgtMjY0Zi00M2FiLWEyMjYtZWY5NDZhOTNkZTE4LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNDA2MDUlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjQwNjA1VDIxMTYzNVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWIxYzM1NGUwYTZjMzA5NmNkYjJiYWEzNzY1MDBhN2IzZGZhNTRmYTRkZjU5Y2MyNTFlNzY4N2FjZjQyN2QzMDEmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.VQvQRjxMyesJuGawkp9ERmh4PGYKAD3t7i9bPgy9BvE)
+![System](https://private-user-images.githubusercontent.com/44289027/337014006-ce5f4358-264f-43ab-a226-ef946a93de18.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODAxNTI2MzAsIm5iZiI6MTc4MDE1MjMzMCwicGF0aCI6Ii80NDI4OTAyNy8zMzcwMTQwMDYtY2U1ZjQzNTgtMjY0Zi00M2FiLWEyMjYtZWY5NDZhOTNkZTE4LnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA1MzAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNTMwVDE0NDUzMFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWMyOThkOWNkNDdlOGQ2N2E1ZmU0M2I0OTc3NDJmZjI0ODgwZThhM2M1ODkzNjRlNzExOTQzMDAzZmY0MDg1NjQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JnJlc3BvbnNlLWNvbnRlbnQtdHlwZT1pbWFnZSUyRnBuZyJ9.gcEZPfq0WfpzMyjyPQy1Sn7I48SSq50k380Cr9K_2dM)
 
 
 ### From raw data to crosslinks
@@ -12,7 +12,7 @@ Open xiSEARCH.
 
 In the files tab, load peak files (recal*.mgf files) and sequence file (complex.fasta) and select an output name.
 
-In the parameters tab, tick on "multiple crosslinkers" and select SDA and non-covalent, deselect BS3. Why is that? [citation](https://pubs.acs.org/doi/epdf/10.1021/acs.analchem.8b04037)
+In the parameters tab, select "SDA" (the crosslinker used here), tick on "non-covalent", deselect BS3. Why is that? [citation](https://pubs.acs.org/doi/epdf/10.1021/acs.analchem.8b04037)
 
 Select number of threads, memory and set missed cleavages to 4.
 
@@ -30,13 +30,17 @@ This is a very simplified "how to" guide, but there is a lot of complexity to th
 
 Create your own account in xiview.org and upload the results, or else proceed with the pregenerated dataset as below.
 
-Open the dataset in the xiview.org interactive viewer [here](https://xiview.org/network.php?upload=27449-11563-41954-87027-74439). 
+**Open the dataset in the xiview.org interactive viewer [here](https://xiview.org/network.php?upload=27449-11563-41954-87027-74439).**
 
 **You can expand each protein with the right click of the mouse to see where the crosslinks are localised on the sequence. Right click again and resize the protein to 0.2** 
 
+You should end up with something like this:
+
+![expanded](https://private-user-images.githubusercontent.com/44289027/600498901-87653f06-7ed8-4d20-8f65-de838e2c90fb.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3ODAxNTI5ODMsIm5iZiI6MTc4MDE1MjY4MywicGF0aCI6Ii80NDI4OTAyNy82MDA0OTg5MDEtODc2NTNmMDYtN2VkOC00ZDIwLThmNjUtZGU4MzhlMmM5MGZiLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFWQ09EWUxTQTUzUFFLNFpBJTJGMjAyNjA1MzAlMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjYwNTMwVDE0NTEyM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTk5N2MyZWMxYjE1MzYxMTMzMzI1MzUwNjczZWU5ZGRlOTg3OWZjZWIxOTM1ZDFmMjNjNTQyNGRjMWZhNjc5NTQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JnJlc3BvbnNlLWNvbnRlbnQtdHlwZT1pbWFnZSUyRnBuZyJ9.lmA1kalH3ph722AeFNYFRRTJ9Z0PbcPYQtlb4zzMb-Y)
+
 Crosslinks may also be visualised in the circle plot, accessible from "views"... "circular"
 
-At the bottom of the viewer, you have several toggles:
+At the bottom left of the viewer, you have several toggles:
 
 - self/heteromeric: toggle crosslinks within protein sequences or between protein sequences on or off. As the experimnt is peptide based, a "self" link can also be between multiple copies of the same protein
 - overlap/non-overlap: toggle crosslinks that are self but between multiple copies of the same protein (not relevant here)
@@ -50,7 +54,7 @@ Top panel includes tabs for uploading various files, including PDB files, and fo
 #### Gathering statistics and inspecting interactions
 All run files for the experiments with low SDA concentrations are called "Ratio24". The ones with the high SDA concentrations are called "Ratio56". Using the filters, take a look at how many crosslinks and how many heteromeric crosslinks correspond to either condition. What do you see?
 
-Go to views.. circular, and in the Name/acc selection box at the bottom of the page type Vpr. Which region of SAMHD1 interacts with Vpr? On the other hand, type SAMHD1? does the rest of its sequence have a specific interface with the rest of the complex? 
+Go to views... circular, and in the Name/acc selection box at the bottom left of the page type Vpr. Which region of SAMHD1 interacts with Vpr? On the other hand, type SAMHD1? does the rest of its sequence have a specific interface with the rest of the complex? 
 
 #### Viewing spectra
 Let's get an idea for what crosslinked peptide spectra look like. In the scan box at the bottom right of the page, select scan 7144 and select the resulting crosslink. From the dropdown menu at the top, select views-> spectrum.
@@ -91,7 +95,7 @@ In this case, we used a custom sequence annotation file (sequence_annotations.cs
 
 
 #### Working with PDB files
-Upload the file "state-3_fit_chains.pdb" from the course package. in view, select the 3d viewer. In the "annotation" tab at the top, toggle off the domains and select "PDB aligned region". What do you notice? Which protein is missing from the experimental structure?
+In import... pdb files, Upload the file "state-3_fit_chains.pdb" from the course package. in view, select the 3d viewer. In the "annotation" tab at the top, toggle off the domains and select "PDB aligned region". What do you notice? Which protein is missing from the experimental structure?
 
 Let's look at the 3d structure now. To check if the crosslinks are satisfied by this model, open "view", "legends and colors" and then color the crosslinks by distance. Let's set satisfied up to 25 angstrom, borderline 25-30 and violated over 30 angstrom. Go back to the 3d viewer. What do you see? You can also toggle between all crosslinks and heteromeric only. Monitor the distances on the circle plot.
 
@@ -100,14 +104,16 @@ For a more quantitative overview, check the histogram tab and plot by distance, 
 ### In-depth 3d analysis
 
 #### Binding patch
-Select SAMHD1 crosslinks in the protein selection box, and toggle off self links.
+Select SAMHD1 crosslinks in the protein selection box in the name/acc in in the bottom left. Toggle off self links.
 
 Go back to the 3d viewer and toggle the display to "residues with half links" from the dropdown menu.
 
-#### Flexibility
-Within the 3d viewer, you can upload the 3 different PDBs and check the distance of critical crosslinks.
+What do you see? What part of the structure is "visited" by SAMHD1?
 
-To work with crosslinking data in chimerax, one can export the links from the 3d viewer by clicking on 3d export.. chimerax pseudobond file.
+#### Flexibility
+Within the 3d viewer, you can upload the 3 different PDBs one by one and check the distance of critical crosslinks.
+
+To work with crosslinking data in chimerax, one can export the links from the 3d viewer by clicking on 3d export... chimerax pseudobond file.
 
 To work directly in chimerax, you can instead use the X-MAS plugin. X-MAS is a plugin by the Scheltema group [citation](https://www.biorxiv.org/content/10.1101/2022.04.21.489026v2)
 
@@ -115,7 +121,7 @@ Open chimerax and load the session.cxs from the course package.
 
 Go to tools... more tools and install x-mas plugin.
 
-Go to tools.. structure analysis... XMAS. In the tool, click on "import files". Navigate to results files and load the "peptide pairs" file. Select State 2 pdb and map crosslinks.
+Go to tools... structure analysis... XMAS. In the tool, click on "import files". Navigate to results files and load the "peptide pairs" file. Select State 2 pdb and map crosslinks.
 
 Click on "visualize". You can color by distance here, or export to other programs like DisVis for mapping patches and similar.
 
