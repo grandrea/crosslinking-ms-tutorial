@@ -89,7 +89,7 @@ Using the box to select "frac6" and "frac9", check out if there is a difference 
 
 What consequences does this have for experimental design?
 
-In the upload tab, go to "sequence annotations  " and upload the file XXX.csv. In the "annotation" tab at the top, toggle annotations on. You should now see domains highlighted on the sequence. 
+In the upload tab, go to "sequence annotations  " and upload the file sequence_annotations.csv. In the "annotation" tab at the top, toggle annotations on. You should now see domains highlighted on the sequence. 
 
 In this case, we used a custom sequence annotation file (sequence_annotations.csv), as our proteins are recombinant and we searched with an in-house sequence file containing the tags. For proteins with uniprot IDs in the sequence file headers, xiview will automatically download this information from uniprot.
 
