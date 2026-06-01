@@ -12,7 +12,9 @@ Open xiSEARCH.
 
 In the files tab, load peak files (recal*.mgf files) and sequence file (complex.fasta) and select an output name.
 
-In the parameters tab, select "SDA" (the crosslinker used here), tick on "non-covalent", deselect BS3. Why is that? [citation](https://pubs.acs.org/doi/epdf/10.1021/acs.analchem.8b04037)
+In the parameters tab, select "SDA" (the crosslinker used here), tick on "non-covalent". Why is that? [citation](https://pubs.acs.org/doi/epdf/10.1021/acs.analchem.8b04037)
+
+Set search tolerance to 3ppm MS1, 5ppm MS2.
 
 Select number of threads, memory and set missed cleavages to 4.
 
@@ -28,9 +30,8 @@ This is a very simplified "how to" guide, but there is a lot of complexity to th
 
 ### analyze crosslinking MS dataset on xiview.org
 
-Create your own account in xiview.org and upload the results, or else proceed with the pregenerated dataset as below.
 
-**Open the dataset in the xiview.org interactive viewer [here](https://xiview.org/network.php?upload=27449-11563-41954-87027-74439).**
+***Open the dataset in the xiview.org interactive viewer [here](https://xiview.org/network.php?upload=27449-11563-41954-87027-74439).***
 
 **You can expand each protein with the right click of the mouse to see where the crosslinks are localised on the sequence. Right click again and resize the protein to 0.2** 
 
@@ -50,6 +51,8 @@ At the bottom left of the viewer, you have several toggles:
 - filter boxes: filter by peptide sequence, protein name, description. On the right also boxes for  run name and scan number.
 
 Top panel includes tabs for uploading various files, including PDB files, and for analysing crosslink data.
+
+You can create your own account in xiview.org and upload the results, or else proceed with the pregenerated dataset as below.
 
 #### Gathering statistics and inspecting interactions
 All run files for the experiments with low SDA concentrations are called "Ratio24". The ones with the high SDA concentrations are called "Ratio56". Using the filters, take a look at how many crosslinks and how many heteromeric crosslinks correspond to either condition. What do you see?
