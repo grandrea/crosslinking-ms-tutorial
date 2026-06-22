@@ -875,6 +875,17 @@
             Score sliders in visualization tools are useful for inspection. For a stricter dataset, rerun xiFDR with a stricter threshold or appropriate prefilters before FDR estimation.
           </div>
 
+          <h3>Interpreting xiFDR warnings</h3>
+          <p>xiFDR warnings are not all equally serious. Always read the level at which the warning is reported: CSM, peptide pair, residue pair, protein pair, or protein group. A warning at a level you are not using for interpretation may be acceptable, while a warning at the residue-pair level is important in this tutorial because residue pairs become structural restraints.</p>
+          <p>A warning about not enough TT matches means there are too few target-target results to estimate the chosen FDR reliably at that level. This can happen when the dataset is nearly empty after filtering, when the search failed to identify enough plausible targets, or when the requested FDR threshold is too stringent for the amount of data. In that case, first ask whether the search settings, database, and chemistry were appropriate, then consider whether the FDR threshold or result level is too strict for the dataset.</p>
+          <p>A warning about too many DD matches is more concerning because it suggests the target-decoy assumptions are not behaving as expected. For a well-behaved crosslink search, target-decoy matches are expected to be more frequent than decoy-decoy matches, often approximately twice as frequent because there are two ways to form a target-decoy pair. If DD matches are too abundant, the decoy model may not be describing random matches well, the search space may be poorly balanced, or the result population may be too small or distorted for stable FDR estimation.</p>
+          <p>For this tutorial dataset, which contains only a small number of proteins, a warning at the protein-group level is not automatically alarming: there are not many possible protein groups to estimate. A warning at the residue-pair level is a much bigger problem because that is the level used to decide which crosslinks can be mapped onto structures and interpreted biologically.</p>
+
+          <div class="callout warning">
+            <strong>Rule of thumb</strong>
+            Treat residue-pair warnings as blockers for structural interpretation until you understand them. Treat protein-group warnings in a small targeted database as context-dependent, because the protein-group population may simply be too small for stable statistics.
+          </div>
+
           <table>
             <thead><tr><th>Term</th><th>Meaning in this workflow</th></tr></thead>
             <tbody>
@@ -905,6 +916,7 @@
             <li><label><input type="checkbox" data-check><span>I can distinguish CSM, peptide-pair, residue-pair, and protein-pair FDR questions.</span></label></li>
             <li><label><input type="checkbox" data-check><span>I loaded or reviewed xiSEARCH results in xiFDR and exported the filtered result table.</span></label></li>
             <li><label><input type="checkbox" data-check><span>I set or reviewed the FDR threshold at the residue-pair level.</span></label></li>
+            <li><label><input type="checkbox" data-check><span>I checked xiFDR warnings at the level used for interpretation, especially residue pairs.</span></label></li>
             <li><label><input type="checkbox" data-check><span>I understand why self and heteromeric links are treated separately.</span></label></li>
           </ul>
         </section>
