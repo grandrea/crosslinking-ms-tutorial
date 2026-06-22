@@ -690,8 +690,24 @@
           <h3>How to work through the tutorial</h3>
           <p>Each module starts with the concept that motivates the action. Read that part first, then perform the boxed instruction or answer the boxed question. The checkboxes are only a local progress aid; they do not store or submit data.</p>
 
+          <h3>Software and where to get it</h3>
+          <p>Several steps use external tools. Install or open them before the practical session if you want to follow the complete workflow from search to structural interpretation.</p>
+          <table>
+            <thead><tr><th>Tool</th><th>Where to get it</th><th>Used for in this tutorial</th></tr></thead>
+            <tbody>
+              <tr><td>xiSEARCH</td><td><a href="https://www.rappsilberlab.org/software/xisearch/" target="_blank" rel="noreferrer">Rappsilber Lab xiSEARCH download page</a></td><td>Searching MGF/APL peak files against a FASTA database to produce crosslinked spectrum matches.</td></tr>
+              <tr><td>xiFDR</td><td><a href="https://www.rappsilberlab.org/software/xifdr/" target="_blank" rel="noreferrer">Rappsilber Lab xiFDR download page</a></td><td>Filtering xiSEARCH results and assigning FDR-controlled confidence at CSM, peptide-pair, residue-pair, and protein-pair levels.</td></tr>
+              <tr><td>xiview</td><td><a href="https://xiview.org/" target="_blank" rel="noreferrer">xiview.org</a></td><td>Interactive network, sequence, spectrum, plot, and 3D inspection of filtered crosslinking results.</td></tr>
+              <tr><td>DisVis</td><td><a href="https://wenmr.science.uu.nl/disvis/" target="_blank" rel="noreferrer">DisVis webserver</a></td><td>Mapping accessible interaction space compatible with crosslink-derived distance restraints.</td></tr>
+              <tr><td>HADDOCK</td><td><a href="https://wenmr.science.uu.nl/haddock2.4/" target="_blank" rel="noreferrer">HADDOCK2.4 webserver</a></td><td>Restraint-driven docking and modeling follow-up.</td></tr>
+              <tr><td>ChimeraX</td><td><a href="https://www.cgl.ucsf.edu/chimerax/" target="_blank" rel="noreferrer">UCSF ChimeraX</a></td><td>Structural visualization, density viewing, model comparison, and publication-quality figures.</td></tr>
+              <tr><td>X-MAS plugin</td><td>Install inside ChimeraX with <b>Tools -> More Tools</b>, then open <b>Tools -> Structure Analysis -> XMAS</b>; see the <a href="https://www.biorxiv.org/content/10.1101/2022.04.21.489026v2" target="_blank" rel="noreferrer">X-MAS reference</a>.</td><td>Mapping crosslink result files onto structures directly in ChimeraX.</td></tr>
+            </tbody>
+          </table>
+
           <ul class="checklist">
             <li><label><input type="checkbox" data-check><span>I can describe how raw spectra become structural restraints.</span></label></li>
+            <li><label><input type="checkbox" data-check><span>I know where to download or open the tools used in the tutorial.</span></label></li>
             <li><label><input type="checkbox" data-check><span>I understand that this page links to external tools rather than embedding them.</span></label></li>
           </ul>
         </section>
