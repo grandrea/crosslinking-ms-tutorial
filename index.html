@@ -685,21 +685,63 @@
           <p>xiSEARCH handles this by scoring candidate explanations for each spectrum. The documented strategy first evaluates alpha peptide candidates, then considers compatible beta candidates based on precursor mass, and finally performs more complete scoring of the best peptide-pair candidates. The score is a ranking tool, not by itself an error estimate.</p>
           <p>The target-decoy logic is built into the search output. Matches against target and decoy sequences are passed to xiFDR, which estimates how many accepted matches are expected to be false at the chosen result level.</p>
 
+          <h3>Before opening xiSEARCH: define the chemical search space</h3>
+          <p>A search engine can only compare spectra against the chemical possibilities that you give it. A useful xiSEARCH setup therefore starts with a realistic model of the experiment: which proteins were present, how they were digested, which crosslinker was used, which side reactions are plausible, and which modifications are common enough to search.</p>
+          <p>For this dataset, the crosslinker is sulfo-SDA. The relevant preset searches K, S, T, Y, and protein N-termini on one side against any amino acid on the other side. The tutorial also includes loop-linked and hydrolyzed SDA products as variable modifications because those products are chemically expected. BS3-related modifications should be deselected because they describe a different crosslinker chemistry and only add irrelevant candidate explanations.</p>
+          <p>NonCovalent should be included as a competing explanation. Some spectra come from co-eluting peptides that fragment together without being covalently linked. If this class is not searched, those spectra may be forced into crosslink assignments that look plausible but are chemically misleading.</p>
+
+          <h3>Before opening xiSEARCH: craft the sequence database</h3>
+          <p>The FASTA database defines both sensitivity and statistical difficulty. A database that is too small can miss real explanations such as contaminants, tags, or alternate constructs. A database that is too broad creates many more candidate peptide pairs, increases RAM and runtime, and can make target-decoy modeling less stable if the search space is dominated by irrelevant proteins.</p>
+          <p>For recombinant complexes, make sure each protein has a unique accession before the first space in the FASTA header. xiSEARCH parses protein names, accessions, and descriptions from the headers, and repeated or ambiguous accessions can later confuse xiFDR output and xiview labels. If custom decoys are provided, the target and decoy accessions should correspond cleanly, for example by adding a consistent <code>REV_</code> prefix.</p>
+
+          <div class="callout warning">
+            <strong>Database and RAM tradeoff</strong>
+            Database size, missed cleavages, variable modifications, and thread count all increase the candidate space. Include contaminants and construct-specific sequences when they are plausible, but do not use a broad proteome-scale database unless the experiment requires it and enough memory is available.
+          </div>
+
+          <h3>Walkthrough: Files tab</h3>
+          <p>The Files tab defines the inputs and output destination. Load the recalibrated peak lists, here represented as <code>recal*.mgf</code>, then load the sequence database, here <code>complex.fasta</code>. Choose an output name that records the chemistry and key search settings, for example an SDA search with residue-pair FDR follow-up.</p>
+          <p>xiSEARCH automatically creates decoys from the uploaded FASTA unless a FASTA is explicitly marked as a decoy database. For this tutorial, use the standard target FASTA workflow unless you have a carefully paired target/decoy database.</p>
+
+          <div class="callout">
+            <strong>Do this in the Files tab</strong>
+            Add all recalibrated MGF peak files, add <code>complex.fasta</code>, and set the output path/name before moving to the Parameters tab.
+          </div>
+
+          <h3>Walkthrough: Parameters tab and Basic Config</h3>
+          <p>The Parameters tab defines the search model. In Basic Config, choose the crosslinker chemistry, digestion rule, mass tolerances, missed cleavages, variable modifications, ion series, losses, memory, and thread count. These are not cosmetic settings: each one changes which theoretical explanations xiSEARCH will consider.</p>
+
           <table>
             <thead><tr><th>Setting</th><th>Tutorial choice</th><th>Why it matters</th></tr></thead>
             <tbody>
               <tr><td>Peak files</td><td><code>recal*.mgf</code></td><td>Recalibrated high-resolution spectra support tight mass tolerances.</td></tr>
               <tr><td>FASTA</td><td><code>complex.fasta</code></td><td>Defines the search space and target-decoy database.</td></tr>
               <tr><td>Crosslinker</td><td>SDA plus NonCovalent</td><td>SDA captures the experiment; NonCovalent tests co-eluting peptide pairs that can mimic crosslinks.</td></tr>
-              <tr><td>Tolerances</td><td>3 ppm MS1, 5 ppm MS2</td><td>Appropriate for recalibrated high-resolution Orbitrap-style data.</td></tr>
+              <tr><td>Protease</td><td>Use the digestion rule used for sample preparation</td><td>The enzyme defines which peptide candidates exist before crosslinking and modification.</td></tr>
+              <tr><td>Tolerances</td><td>3 ppm MS1, 5 ppm MS2</td><td>Appropriate for recalibrated high-resolution Orbitrap-style data. Wider tolerances should be justified by mass-error evidence.</td></tr>
               <tr><td>Missed cleavages</td><td>4</td><td>Crosslinked peptides can resemble long miscleaved linear peptides, so alternatives should be considered.</td></tr>
+              <tr><td>Threads</td><td>Match available CPU and RAM</td><td>More threads can speed searches but also increase memory pressure.</td></tr>
+              <tr><td>Memory</td><td>Allocate only available free RAM</td><td>Over-allocating memory can force swapping and make the search slower rather than faster.</td></tr>
               <tr><td>Variable modifications</td><td>SDA-loop and SDA-OH; deselect BS3 modifications</td><td>Keeps chemistry aligned with the sulfo-SDA experiment.</td></tr>
             </tbody>
           </table>
 
+          <h3>Fixed, variable, and variable-linear modifications</h3>
+          <p>Fixed modifications are applied wherever their residue rule matches, so they are appropriate only when the chemistry is expected on every instance. Variable modifications are optional alternatives and therefore multiply the number of candidate peptides. Variable-linear modifications are optional but considered only for linear peptide explanations, which can help keep large crosslink searches tractable while still allowing common linear side products.</p>
+          <p>The practical rule is to model the real chemical space, not every conceivable mass shift. Adding modifications without a chemical reason increases runtime, RAM use, and the number of false alternatives competing for each spectrum.</p>
+
           <div class="callout warning">
             <strong>Memory and threads</strong>
-            xiSEARCH memory use depends on database size, modifications, and thread count. If the search runs out of memory, reduce threads or increase the Java memory allocation rather than blindly expanding the search.
+            xiSEARCH memory use depends on database size, modifications, missed cleavages, and thread count. If the search runs out of memory, reduce threads, reduce unnecessary variable modifications, narrow the database, or increase the Java memory allocation only within the limits of free system memory.
+          </div>
+
+          <h3>Advanced Config and reproducibility</h3>
+          <p>Basic Config is the right entry point for this tutorial. Advanced Config exposes the backend text configuration that xiSEARCH also uses for saved config files and command-line or HPC runs. It is useful when you need reproducibility across machines, custom crosslinker definitions, non-default candidate limits, custom accession parsing, or settings not exposed clearly in the beginner-facing controls.</p>
+          <p>Do not start by changing advanced candidate limits unless there is a concrete problem to solve. For example, limits on modified peptides or candidate peptides can rescue memory-heavy searches, but they also change which explanations are allowed to compete.</p>
+
+          <div class="callout">
+            <strong>Do this in the Parameters tab</strong>
+            Select SDA and NonCovalent, set MS1 to 3 ppm and MS2 to 5 ppm, set missed cleavages to 4, choose a sensible thread count and memory allocation, deselect BS3 modifications, and keep SDA-loop and SDA-OH selected.
           </div>
 
           <details>
@@ -718,7 +760,9 @@
 
           <ul class="checklist">
             <li><label><input type="checkbox" data-check><span>I loaded peak files and the FASTA in the xiSEARCH files tab.</span></label></li>
+            <li><label><input type="checkbox" data-check><span>I checked that FASTA accessions are unique and appropriate for xiview and xiFDR output.</span></label></li>
             <li><label><input type="checkbox" data-check><span>I selected SDA and NonCovalent, set tolerances, memory, threads, missed cleavages, and modifications.</span></label></li>
+            <li><label><input type="checkbox" data-check><span>I can explain why irrelevant modifications and oversized databases increase RAM and false alternatives.</span></label></li>
             <li><label><input type="checkbox" data-check><span>I understand why xiSEARCH output still needs xiFDR filtering.</span></label></li>
           </ul>
         </section>
@@ -730,16 +774,24 @@
             <p><a href="https://github.com/Rappsilber-Laboratory/xiFDR/blob/master/README.md" target="_blank" rel="noreferrer">xiFDR</a> estimates false discovery rates for crosslinking MS results. It filters CSMs and aggregates confidence to peptide pairs, residue pairs, and protein pairs.</p>
           </div>
 
-          <div class="callout">
-            <strong>Core formula</strong>
-            <span class="formula">FDR = (TD - DD) / TT</span>
-            <p>Here, TT means target-target matches, TD means target-decoy matches, and DD means decoy-decoy matches. The formula is useful only when the decoy space models random matching well.</p>
-          </div>
-
           <h3>Theory: why FDR is not a single universal number</h3>
           <p>A crosslinking MS result is aggregated in layers. The first layer is the CSM, where one spectrum supports one peptide-pair assignment. Multiple CSMs can support the same peptide pair. Multiple peptide pairs can point to the same residue pair because of missed cleavages, modifications, or site ambiguity. Several residue pairs can then support a protein-protein interaction.</p>
           <p>Because each aggregation step changes the population being interpreted, the error rate must be propagated to the level used for biological interpretation. In this tutorial, the structural restraint is a residue pair, so residue-pair or link-level FDR is the relevant setting.</p>
           <p>Self links and heteromeric links also require separate attention. The random search space for linking two residues within one protein differs from linking residues between two proteins, and heteromeric links can have different score behavior. xiFDR reports these classes separately, which is why the tutorial asks you to inspect self and heteromeric links independently.</p>
+
+          <h3>Target-decoy logic in crosslinking MS</h3>
+          <p>Target-decoy estimation depends on the idea that incorrect matches are similarly likely to hit target and decoy sequences. In crosslinking MS, a peptide pair can be target-target, target-decoy, or decoy-decoy. If the search space is well behaved, false target-target matches can be estimated from the decoy-containing matches.</p>
+          <p>The simplified relationship used here is:</p>
+
+          <div class="callout">
+            <strong>Core formula</strong>
+            <span class="formula">FDR = (TD - DD) / TT</span>
+            <p>TT means target-target matches, TD means target-decoy matches, and DD means decoy-decoy matches. DD is subtracted because decoy-decoy matches represent a component of random matching already counted in the target-decoy population.</p>
+          </div>
+
+          <h3>Which FDR level answers which question?</h3>
+          <p>Do not treat all FDR levels as interchangeable. A CSM-level threshold asks, "How many accepted spectrum assignments are expected to be wrong?" A peptide-pair threshold asks, "How many accepted linked peptide pairs are expected to be wrong?" A residue-pair threshold asks, "How many accepted crosslinked residue pairs are expected to be wrong?" A protein-pair threshold asks, "How many accepted protein-protein interactions are expected to be wrong?"</p>
+          <p>Those questions support different claims. Spectrum inspection happens at the CSM level. Structural restraint interpretation happens at the residue-pair level. Network-level biological summaries often happen at the protein-pair level. For this tutorial, the residue-pair level is the main decision point because the later xiview and structural modules ask whether specific residue pairs are compatible with 3D models.</p>
 
           <div class="callout danger">
             <strong>Do not subset FDR-filtered results by score for interpretation</strong>
@@ -753,9 +805,16 @@
               <tr><td>Peptide pair</td><td>Two linked peptides, possibly supported by multiple CSMs.</td></tr>
               <tr><td>Residue pair / link</td><td>The pair of residues inferred to be crosslinked. This is the main level for structural restraints.</td></tr>
               <tr><td>PPI</td><td>A protein-protein interaction supported by one or more residue pairs.</td></tr>
+              <tr><td>TT</td><td>Target-target match. Accepted TT matches are the results users normally inspect.</td></tr>
+              <tr><td>TD</td><td>Target-decoy match. These estimate random matches involving one real and one decoy peptide.</td></tr>
+              <tr><td>DD</td><td>Decoy-decoy match. These help correct the estimate of false target-target matches.</td></tr>
               <tr><td>Boosting</td><td>A xiFDR strategy that searches settings to maximize passing matches while keeping the requested FDR.</td></tr>
             </tbody>
           </table>
+
+          <h3>Prefilters, score filters, and interpretation</h3>
+          <p>Filtering before FDR estimation is part of defining the population whose error rate will be estimated. Filtering after FDR estimation creates a new population whose FDR has not been estimated. This distinction matters in xiview because the score slider is tempting: it can help you inspect spectra, but it should not be used to claim that a subset has a known FDR.</p>
+          <p>If a stricter result set is needed for biological interpretation, return to xiFDR and rerun the procedure with the stricter threshold or with justified prefilters applied before FDR calculation.</p>
 
           <details>
             <summary>Check: when are prefilters acceptable?</summary>
@@ -766,6 +825,7 @@
 
           <ul class="checklist">
             <li><label><input type="checkbox" data-check><span>I can explain TT, TD, DD, and the FDR formula.</span></label></li>
+            <li><label><input type="checkbox" data-check><span>I can distinguish CSM, peptide-pair, residue-pair, and protein-pair FDR questions.</span></label></li>
             <li><label><input type="checkbox" data-check><span>I set or reviewed the FDR threshold at the residue-pair level.</span></label></li>
             <li><label><input type="checkbox" data-check><span>I understand why self and heteromeric links are treated separately.</span></label></li>
           </ul>
