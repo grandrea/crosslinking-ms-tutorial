@@ -335,7 +335,7 @@
 
     .workflow {
       display: grid;
-      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 0;
       margin: 20px 0;
       overflow: hidden;
@@ -647,10 +647,11 @@
       <header class="hero">
         <div class="hero-inner">
           <p class="eyebrow">Hands-on workflow</p>
-          <h1>Crosslinking MS from search results to structural insight</h1>
-          <p class="lead">A guided tutorial for moving from xiSEARCH setup, through xiFDR confidence control, to xiview data exploration and structural analysis of the Cullin4 ubiquitin ligase, SAMHD1, and Vpr system.</p>
+          <h1>Crosslinking MS from biological question to structural insight</h1>
+          <p class="lead">A guided tutorial that starts with the Vpr, Cullin4 ligase, and SAMHD1 biological question, follows the experimental design and wet-lab processing, then moves through MS data, xiSEARCH, xiFDR, xiview, and structural interpretation.</p>
           <div class="hero-actions">
             <a class="button primary" href="#overview">Start tutorial</a>
+            <a class="button dark" href="https://drive.google.com/drive/folders/1P5WDwfDGmUzZPOy35eC9pzqVHvLYQWO1?usp=sharing" target="_blank" rel="noreferrer">Download course material</a>
             <a class="button dark" href="https://xiview.org/network.php?upload=27449-11563-41954-87027-74439" target="_blank" rel="noreferrer">Open xiview dataset</a>
             <a class="button dark" href="https://www.ebi.ac.uk/pride/archive/projects/PXD020453" target="_blank" rel="noreferrer">Open PRIDE data</a>
           </div>
@@ -662,19 +663,22 @@
           <div class="section-head">
             <span class="kicker">Module 1</span>
             <h2>Overview</h2>
-            <p>This tutorial uses crosslinking MS as a structural detective story. The biological question is how Vpr from simian immunodeficiency virus hijacks the Cullin4 ubiquitin ligase system and suppresses the immune response. The crosslinking data are used to ask two connected questions: how does Vpr bind the Cullin4 ligase complex, and how is the restriction factor SAMHD1 recruited?</p>
+            <p>This tutorial is deliberately organized as a chain of reasoning. It starts from the biological question, turns that question into an experimental design, follows what happens in the wet lab, explains what data come out of the mass spectrometer, then uses xiSEARCH, xiFDR, xiview, and structural analysis to decide which observations support a biological model.</p>
+            <p>The biological question is how Vpr from simian immunodeficiency virus hijacks the Cullin4 ubiquitin ligase system and suppresses the immune response. The crosslinking data are used to ask two connected structural questions: how does Vpr bind the Cullin4 ligase complex, and how is the restriction factor SAMHD1 recruited?</p>
             <p>The central model developed through the tutorial is that the C-terminus of SAMHD1 forms a stable interaction with Vpr, while the rest of SAMHD1 is flexible and samples many positions around the complex. That flexibility helps explain why much of SAMHD1 is not resolved in the cryo-EM density, even though crosslinking MS can still detect where it has visited.</p>
             <p>The dataset uses sulfo-SDA crosslinking data from the Cullin4 ubiquitin ligase, SAMHD1, and Vpr system described in <a href="https://journals.plos.org/plospathogens/article?id=10.1371/journal.ppat.1009775" target="_blank" rel="noreferrer">Structural insights into Cullin4-RING ubiquitin ligase remodelling by Vpr from simian immunodeficiency viruses</a>. The practical goal is not only to generate crosslinks, but to decide which observations are reliable enough to support structural interpretation.</p>
             <p>The original tutorial material is maintained in <a href="https://github.com/grandrea/crosslinking-ms-tutorial" target="_blank" rel="noreferrer">grandrea/crosslinking-ms-tutorial</a>, and the raw mass spectrometry data are available from <a href="https://www.ebi.ac.uk/pride/archive/projects/PXD020453" target="_blank" rel="noreferrer">PRIDE project PXD020453</a>. Background documentation for the search and FDR stages comes from the <a href="https://github.com/Rappsilber-Laboratory/XiSearch/blob/master/README.md" target="_blank" rel="noreferrer">xiSEARCH</a> and <a href="https://github.com/Rappsilber-Laboratory/xiFDR/blob/master/README.md" target="_blank" rel="noreferrer">xiFDR</a> documentation.</p>
           </div>
 
           <div class="workflow" aria-label="Tutorial workflow">
-            <div class="step"><b>1. Raw data</b><span>Peak files and FASTA define the search space.</span></div>
-            <div class="step"><b>2. xiSEARCH</b><span>Generate candidate crosslinked spectrum matches.</span></div>
-            <div class="step"><b>3. xiFDR</b><span>Control error at the interpretation level.</span></div>
-            <div class="step"><b>4. xiview</b><span>Explore network, sequence, spectra, and plots.</span></div>
-            <div class="step"><b>5. Structures</b><span>Map links onto PDB models and inspect distances.</span></div>
-            <div class="step"><b>6. Modeling</b><span>Use crosslinks to reason about missing or flexible regions.</span></div>
+            <div class="step"><b>1. Biological question</b><span>Define the Vpr, Cullin4 ligase, and SAMHD1 mechanism to test.</span></div>
+            <div class="step"><b>2. Experimental design</b><span>Choose SDA crosslinking, titrate concentration, and preserve interpretable complex bands.</span></div>
+            <div class="step"><b>3. Wet lab</b><span>Pool gel lanes, digest in gel, separate peptides by SEC, and acquire each relevant fraction.</span></div>
+            <div class="step"><b>4. MS output</b><span>Understand MGF files as MS2 peak lists with precursor headers.</span></div>
+            <div class="step"><b>5. xiSEARCH</b><span>Match spectra against FASTA-derived chemical possibilities.</span></div>
+            <div class="step"><b>6. xiFDR</b><span>Control error at the residue-pair level used for structural interpretation.</span></div>
+            <div class="step"><b>7. xiview</b><span>Inspect networks, sequences, spectra, plots, and condition-specific patterns.</span></div>
+            <div class="step"><b>8. Structure</b><span>Map links onto PDB models, DisVis maps, and flexible SAMHD1 hypotheses.</span></div>
           </div>
 
           <p>By the end of the tutorial, you should be able to explain why the xiSEARCH setup uses SDA, a non-covalent search option, tight recalibrated mass tolerances, multiple missed cleavages, and appropriate memory/thread settings. You should also be able to explain why xiFDR-filtered residue pairs are the correct result level for this structural workflow, and why score sliders in visualization tools are for inspection rather than redefining the accepted dataset.</p>
