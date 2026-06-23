@@ -630,14 +630,14 @@
         <div class="progress-bar"><span id="progressBar"></span></div>
       </div>
       <nav id="toc" aria-label="Tutorial sections">
-        <a href="#overview"><span class="dot"></span><span>Overview</span></a>
-        <a href="#dataset"><span class="dot"></span><span>Dataset and assets</span></a>
+        <a href="#overview"><span class="dot"></span><span>Biological question</span></a>
+        <a href="#dataset"><span class="dot"></span><span>Experiment and MS data</span></a>
         <a href="#xisearch"><span class="dot"></span><span>xiSEARCH</span></a>
         <a href="#xifdr"><span class="dot"></span><span>xiFDR</span></a>
         <a href="#xiview"><span class="dot"></span><span>xiview orientation</span></a>
-        <a href="#spectra"><span class="dot"></span><span>Spectra</span></a>
-        <a href="#statistics"><span class="dot"></span><span>Dataset statistics</span></a>
-        <a href="#structures"><span class="dot"></span><span>3D structures</span></a>
+        <a href="#spectra"><span class="dot"></span><span>Spectral evidence</span></a>
+        <a href="#statistics"><span class="dot"></span><span>Experimental patterns</span></a>
+        <a href="#structures"><span class="dot"></span><span>Structural mapping</span></a>
         <a href="#chimerax"><span class="dot"></span><span>ChimeraX and X-MAS</span></a>
         <a href="#modeling"><span class="dot"></span><span>Modeling</span></a>
       </nav>
@@ -663,9 +663,10 @@
           <div class="section-head">
             <span class="kicker">Module 1</span>
             <h2>Overview</h2>
-            <p>This tutorial is deliberately organized as a chain of reasoning. It starts from the biological question, turns that question into an experimental design, follows what happens in the wet lab, explains what data come out of the mass spectrometer, then uses xiSEARCH, xiFDR, xiview, and structural analysis to decide which observations support a biological model.</p>
-            <p>The biological question is how Vpr from simian immunodeficiency virus hijacks the Cullin4 ubiquitin ligase system and suppresses the immune response. The crosslinking data are used to ask two connected structural questions: how does Vpr bind the Cullin4 ligase complex, and how is the restriction factor SAMHD1 recruited?</p>
-            <p>The central model developed through the tutorial is that the C-terminus of SAMHD1 forms a stable interaction with Vpr, while the rest of SAMHD1 is flexible and samples many positions around the complex. That flexibility helps explain why much of SAMHD1 is not resolved in the cryo-EM density, even though crosslinking MS can still detect where it has visited.</p>
+            <p>This is a tutorial on the use of xiSEARCH and the xi pipeline for crosslinking mass spectrometry data analysis and structural interpretation. We will walk through how crosslinking MS can be used to answer specific biological questions in structural biology, focusing on a dataset obtained with the photo-crosslinker sulfo-SDA on a purified reconstituted protein complex: the Cullin4 ubiquitin ligase system hijacked by the simian immunodeficiency virus protein Vpr.</p>
+            <p>SIV suppresses the immune response by recruiting the antiviral restriction factor SAMHD1 to this Cullin4 ligase complex. The key structural questions are how Vpr binds the ligase and which region of SAMHD1 is recruited onto the complex.</p>
+            <p>A medium-low resolution cryo-EM structure of this system could be obtained, but the structure was difficult to interpret. The position of some proteins was ambiguous in the density, SAMHD1 was missing altogether, and the system appeared highly flexible. The cryo-EM structure therefore did not fully explain how Vpr recruits SAMHD1 or how SAMHD1 is positioned relative to the ligase.</p>
+            <p>Crosslinking MS was used to identify the interaction of SAMHD1 with the complex, characterize the flexibility of this Cullin4 ubiquitin ligase assembly, and understand the dynamic position of SAMHD1. In this tutorial, those biological questions provide the reason for the experimental design, the search settings, the FDR choices, and the structural interpretation.</p>
             <p>The dataset uses sulfo-SDA crosslinking data from the Cullin4 ubiquitin ligase, SAMHD1, and Vpr system described in <a href="https://journals.plos.org/plospathogens/article?id=10.1371/journal.ppat.1009775" target="_blank" rel="noreferrer">Structural insights into Cullin4-RING ubiquitin ligase remodelling by Vpr from simian immunodeficiency viruses</a>. The practical goal is not only to generate crosslinks, but to decide which observations are reliable enough to support structural interpretation.</p>
             <p>The original tutorial material is maintained in <a href="https://github.com/grandrea/crosslinking-ms-tutorial" target="_blank" rel="noreferrer">grandrea/crosslinking-ms-tutorial</a>, and the raw mass spectrometry data are available from <a href="https://www.ebi.ac.uk/pride/archive/projects/PXD020453" target="_blank" rel="noreferrer">PRIDE project PXD020453</a>. Background documentation for the search and FDR stages comes from the <a href="https://github.com/Rappsilber-Laboratory/XiSearch/blob/master/README.md" target="_blank" rel="noreferrer">xiSEARCH</a> and <a href="https://github.com/Rappsilber-Laboratory/xiFDR/blob/master/README.md" target="_blank" rel="noreferrer">xiFDR</a> documentation.</p>
           </div>
