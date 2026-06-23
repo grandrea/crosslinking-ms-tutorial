@@ -731,8 +731,9 @@
 
           <h3>Wet-lab processing before the search</h3>
           <p>The slide deck frames the experiment as a structural problem created by a flexible viral-host assembly. Vpr remodels the Cullin4 ubiquitin ligase system and redirects it toward the antiviral factor SAMHD1, but the recruited SAMHD1 region is difficult to capture as a single ordered cryo-EM density. The crosslinking experiment therefore provides solution-state restraints that can validate the ordered complex, localize Vpr-dependent contacts, and reveal flexible SAMHD1 behavior.</p>
-          <p>Sulfo-SDA was selected because the system is flexible, the chemistry is fast, and the relatively low sample complexity makes a broader photoreactive search space manageable. The wet-lab optimization produced a usable complex band across the crosslinker titration, then the workflow proceeded with in-gel digestion to enrich heteromeric information from the complex band rather than digesting the full mixture in solution.</p>
-          <p>Runs labelled <code>24</code> contain the low SDA concentration condition, while runs labelled <code>56</code> contain the high crosslinker concentration condition. These conditions were processed separately by in-gel digestion. Peptides from the two digests were then separated on two SEC columns, and each early SEC fraction was analysed separately by LC-MS/MS. This is why the later xiview exercises compare both crosslinker concentration and fraction identity.</p>
+          <p>The crosslinker was first titrated to find a useful SDA concentration. The chosen conditions were those where the monomer band was still visible, but the crosslinked complex had formed. This matters because too little crosslinker gives few restraints, while too much crosslinker can over-modify the complex and make the sample harder to interpret.</p>
+          <p>The lower-SDA lanes 2-4 were grouped together, and the higher-SDA lanes 5-6 were grouped together. Each grouped gel band was processed separately by in-gel digestion. The peptides from lanes 2-4 were then separated by peptide size exclusion chromatography, and the peptides from lanes 5-6 were separated in the same way on a separate peptide SEC run.</p>
+          <p>Each peptide SEC fraction that could contain crosslinked peptides was injected separately into the mass spectrometer. This is why the run names carry labels such as <code>Ratio24</code> and <code>Ratio56</code>: they trace back to the lane groups that were digested, fractionated, and acquired separately. Later, when comparing conditions in xiview, those labels are experimental history rather than arbitrary file names.</p>
 
           <figure class="annotated-figure">
             <div class="figure-frame">
@@ -793,6 +794,24 @@
           <p>The FASTA database defines both sensitivity and statistical difficulty. A database that is too small can miss real explanations such as contaminants, tags, or alternate constructs. A database that is too broad creates many more candidate peptide pairs, increases RAM and runtime, and can make target-decoy modeling less stable if the search space is dominated by irrelevant proteins.</p>
           <p>Notice this workflow uses a reduced <code>.fasta</code> database with only the proteins of interest to keep runtime manageable. Typically, the database would include the protein of interest, common mass spec contaminants, for example from the MaxQuant contaminant list of cRAPome, and additional proteins identified in the sample by a proteomics experiment.</p>
           <p>For recombinant complexes, make sure each protein has a unique accession before the first space in the FASTA header. xiSEARCH parses protein names, accessions, and descriptions from the headers, and repeated or ambiguous accessions can later confuse xiFDR output and xiview labels. If custom decoys are provided, the target and decoy accessions should correspond cleanly, for example by adding a consistent <code>REV_</code> prefix.</p>
+
+          <h3>What is inside an MGF peak file?</h3>
+          <p>The recalibrated <code>.mgf</code> files are text files containing many MS/MS spectra. Conceptually, each spectrum is a two-dimensional array: fragment ion <i>m/z</i> values on the x axis and intensities on the y axis. These peak lists are the experimental evidence that xiSEARCH must explain.</p>
+          <p>Each MS2 scan also has precursor information in the spectrum header, such as the precursor <i>m/z</i>, charge state, scan title, and retention-time-related metadata. During the database search, xiSEARCH uses the precursor information to decide which peptide or peptide-pair masses could plausibly explain the scan, then compares the observed fragment peaks against theoretical fragments from those candidate explanations.</p>
+
+          <div class="codebox">
+            <div class="codebar">
+              <span>MGF spectrum shape</span>
+              <button class="copy" type="button" data-copy>Copy</button>
+            </div>
+            <pre><code>BEGIN IONS
+TITLE=scan identifier and acquisition metadata
+PEPMASS=precursor_mz precursor_intensity
+CHARGE=precursor_charge+
+fragment_mz fragment_intensity
+fragment_mz fragment_intensity
+END IONS</code></pre>
+          </div>
 
           <div class="callout warning">
             <strong>Database and RAM tradeoff</strong>
@@ -1194,7 +1213,7 @@
           <details>
             <summary>Exercise: SAMHD1 flexibility with half links</summary>
             <div>
-              After identifying the C-terminal Vpr interaction in the circle plot, return to the 3D viewer, select SAMHD1 links, toggle off self links, and display residues with half links. These half links show that the rest of SAMHD1 visits many positions on the complex rather than forming one rigid, resolved interface. This flexibility is a plausible reason why much of SAMHD1 is not visible in the cryo-EM density.
+              After identifying the C-terminal Vpr interaction in the circle plot, return to the 3D viewer, select SAMHD1 links, toggle off self links, and display residues with half links. These half links show that the rest of SAMHD1 visits many positions on the complex rather than forming one rigid, resolved interface. If an AlphaFold3 model for the full SAMHD1-containing assembly is available, upload it and compare the placement of SAMHD1 with the half-link pattern. The AF3 placement is somewhat consistent with the half links, but many crosslinks will be overlength because SAMHD1 is flexible in solution rather than locked into one static pose. This flexibility is a plausible reason why much of SAMHD1 is not visible in the cryo-EM density.
             </div>
           </details>
 
@@ -1262,11 +1281,29 @@
 
           <h3>Background: DisVis</h3>
           <p><a href="https://wenmr.science.uu.nl/disvis/" target="_blank" rel="noreferrer">DisVis</a> is designed for restraint-driven exploration rather than producing a single final model. Given two macromolecular partners and a set of distance restraints, it systematically searches the relative translations and rotations of one partner against the other. The output describes which regions of space are compatible with the restraints and how many restraints are satisfied or violated at each location.</p>
-          <p>For this course, precomputed DisVis outputs are available in the <code>disvis</code> folder of the <a href="https://drive.google.com/drive/folders/1P5WDwfDGmUzZPOy35eC9pzqVHvLYQWO1?usp=sharing" target="_blank" rel="noreferrer">course Google Drive package</a>. Use those files when the aim is to learn interpretation rather than spend tutorial time waiting for a webserver run to finish.</p>
+          <p>For this course, precomputed DisVis outputs for localizing Vpr are available in the <code>disvis</code> folder of the <a href="https://drive.google.com/drive/folders/1P5WDwfDGmUzZPOy35eC9pzqVHvLYQWO1?usp=sharing" target="_blank" rel="noreferrer">course Google Drive package</a>. Use those files when the aim is to learn interpretation rather than spend tutorial time waiting for a webserver run to finish.</p>
           <p>This is useful when crosslinking MS suggests where a missing or flexible domain could be, but the data are not sufficient to define a unique structure. In this tutorial, DisVis is part of the story of locating the viral recruitment interface: the circle plot points to a stable interaction between Vpr and the C-terminus of SAMHD1, while the rest of SAMHD1 behaves flexibly. DisVis lets you ask where a SAMHD1 C-terminal model could be placed around Vpr or the ligase complex while satisfying the crosslink restraints.</p>
           <p>The practical setup is to choose one structure as the fixed partner, for example the Vpr-containing Cullin4 complex, and one structure as the scanning partner, for example a SAMHD1 C-terminal domain model or fragment. Convert the relevant residue-pair crosslinks into distance restraints, choose a distance cutoff appropriate for the crosslinker and structural uncertainty, then let DisVis sample possible positions of the scanning partner. The resulting density reports accessible interaction space: positions that satisfy more restraints receive higher support. It is not experimental electron density, and it does not prove that every allowed position is occupied.</p>
           <p>For the biological interpretation, compare the DisVis-accessible space with the xiview circle plot and the half-link 3D view. A focused accessible space near Vpr supports a stable SAMHD1 C-terminal recruitment site. Broad half-link coverage over the rest of the complex supports the idea that the remaining SAMHD1 body is flexible, which explains why it can leave crosslinking evidence without appearing as a well-resolved cryo-EM density.</p>
           <p>The DisVis server documentation recommends citing the DisVis webserver and method papers listed on the <a href="https://wenmr.science.uu.nl/disvis/" target="_blank" rel="noreferrer">DisVis portal</a>. The software can also be installed locally from the linked DisVis GitHub repository when webserver use is not appropriate.</p>
+
+          <details open>
+            <summary>Tutorial: inspect a DisVis density in ChimeraX</summary>
+            <div>
+              Download the precomputed Vpr-localization results from the Drive <code>disvis</code> folder, then open the DisVis <code>.mrc</code> map together with the relevant structural model in ChimeraX. The map is not cryo-EM density. It is a restraint-satisfaction volume: at each grid position, the value reports how many crosslink restraints can be satisfied when the scanning partner is placed there. Raise and lower the map threshold to ask how strict the localization is. A high threshold shows only positions satisfying many restraints; a lower threshold shows broader compatible space. Use this to connect the DisVis output back to the biological question: where can Vpr or the recruited SAMHD1 region be placed while remaining consistent with the crosslinking evidence?
+            </div>
+          </details>
+
+          <div class="codebox">
+            <div class="codebar">
+              <span>Open DisVis map in ChimeraX</span>
+              <button class="copy" type="button" data-copy>Copy</button>
+            </div>
+            <pre><code>open state-3_fit-chains.pdb
+open disvis/&lt;downloaded-disvis-map&gt;.mrc
+volume #2 level 4
+transparency #2 55</code></pre>
+          </div>
 
           <h3>Other modeling approaches</h3>
           <p><a href="https://colab.research.google.com/github/Rappsilber-Laboratory/AlphaLink2/blob/main/notebooks/alphalink2.ipynb" target="_blank" rel="noreferrer">AlphaLink</a>, <a href="https://integrativemodeling.org/" target="_blank" rel="noreferrer">IMP</a>, <a href="https://www.embl-hamburg.de/Assembline/" target="_blank" rel="noreferrer">Assembline</a>, and <a href="https://wenmr.science.uu.nl/haddock2.4/" target="_blank" rel="noreferrer">HADDOCK</a> provide alternative routes for model building with restraints. They differ in how explicitly they model uncertainty, sampling, scoring, and prior structural information. The correct tool depends on whether the question is exploratory, docking-like, integrative, or prediction-oriented.</p>
