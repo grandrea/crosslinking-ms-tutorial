@@ -824,7 +824,13 @@ END IONS</code></pre>
 
           <div class="callout">
             <strong>Do this in the Files tab</strong>
-            Add all recalibrated MGF peak files, add <code>complex.fasta</code>, and set the output path/name before moving to the Parameters tab.
+            <ol class="callout-list">
+              <li>Open the <b>Files</b> tab.</li>
+              <li>Add all recalibrated MGF peak files from <code>peakfiles/recal*.mgf</code>.</li>
+              <li>Add <code>complex.fasta</code> as the sequence database.</li>
+              <li>Choose an output folder and a descriptive output name.</li>
+              <li>Use the standard target FASTA workflow unless you intentionally prepared a paired target/decoy database.</li>
+            </ol>
           </div>
 
           <h3>Walkthrough: Parameters tab and Basic Config</h3>
@@ -864,7 +870,33 @@ END IONS</code></pre>
 
           <div class="callout">
             <strong>Do this in the Parameters tab</strong>
-            Select SDA and NonCovalent, set MS1 to 3 ppm and MS2 to 5 ppm, set missed cleavages to 4, choose a sensible thread count and memory allocation, deselect BS3 modifications, and keep SDA-loop and SDA-OH selected. Tick <b>Do FDR</b>, keep the threshold at 2% at the residue-pair level, and boost heteromeric crosslinks as in the original workflow.
+            <ol class="callout-list">
+              <li>Select <b>SDA</b> as the crosslinker.</li>
+              <li>Tick <b>NonCovalent</b> so co-eluting peptide pairs can compete with covalent crosslink assignments.</li>
+              <li>Set MS1 tolerance to <b>3 ppm</b> and MS2 tolerance to <b>5 ppm</b>.</li>
+              <li>Set missed cleavages to <b>4</b>.</li>
+              <li>Choose a thread count and memory allocation that fit the machine.</li>
+              <li>Keep <b>SDA-loop</b> and <b>SDA-OH</b> selected.</li>
+            </ol>
+          </div>
+
+          <div class="callout warning">
+            <strong>Deselect before running</strong>
+            Deselect BS3-related modifications. They describe a different crosslinker chemistry and add irrelevant candidate explanations for this sulfo-SDA dataset.
+          </div>
+
+          <div class="callout">
+            <strong>Do FDR inside xiSEARCH</strong>
+            <ol class="callout-list">
+              <li>Tick <b>Do FDR</b> for this dataset.</li>
+              <li>Use <b>2%</b> FDR at the <b>residue-pair/link</b> level.</li>
+              <li>Use heteromeric-link boosting as in the original README workflow.</li>
+            </ol>
+          </div>
+
+          <div class="callout">
+            <strong>Run xiSEARCH</strong>
+            Review the Files and Parameters tabs, then press the xiSEARCH run/search button. Keep the xiSEARCH <code>.csv</code> output and <code>.mzID</code> output. The <code>.csv</code> is the pre-FDR CSM result table; the <code>.mzID</code> is the deposition-friendly mzIdentML output and can be used to generate an xiview session.
           </div>
 
           <details>
@@ -924,7 +956,16 @@ END IONS</code></pre>
 
           <div class="callout">
             <strong>Do this in xiFDR</strong>
-            Load the xiSEARCH result file, check the target/decoy interpretation, keep residue-pair FDR as the main structural level, set the threshold to 2%, boost heteromeric links, run FDR, and export the filtered table for xiview.
+            <ol class="callout-list">
+              <li>Open xiFDR and load the xiSEARCH result file if xiSEARCH did not hand it over automatically.</li>
+              <li>Check that target and decoy accessions are interpreted correctly.</li>
+              <li>Set the main threshold to <b>2%</b> at the <b>residue-pair/link</b> level.</li>
+              <li>Keep heteromeric-link boosting enabled for this dataset.</li>
+              <li>Press <b>Run</b> or the equivalent xiFDR calculation button.</li>
+              <li>Read warnings at the CSM, peptide-pair, residue-pair, protein-pair, and protein-group levels.</li>
+              <li>Export the FDR-controlled <b>CSM table</b>, <b>Links table</b>, and <b>Peptide pair table</b>.</li>
+              <li>Use the <b>Links table</b> as the main result for structural interpretation and xiview mapping.</li>
+            </ol>
           </div>
 
           <div class="callout danger">
@@ -1071,7 +1112,14 @@ END IONS</code></pre>
 
           <div class="callout">
             <strong>First viewer actions</strong>
-            Expand each protein with right click to show sequence-localized crosslinks. Right click again and resize proteins to 0.2 for a compact network view.
+            <ol class="callout-list">
+              <li>Open the pregenerated xiview session from the button above.</li>
+              <li>Right click each protein and expand it to show sequence-localized crosslinks.</li>
+              <li>Right click again and resize proteins to <b>0.2</b> for a compact network view.</li>
+              <li>Use the <b>self/heteromeric</b> toggles to compare all links with links between proteins.</li>
+              <li>Open <b>Views -> Circular</b> to inspect the same links as a circle plot.</li>
+              <li>In the <b>Name/Acc</b> box, type <code>Vpr</code> or <code>SAMHD1-Vpr</code> to focus on the recruitment interface.</li>
+            </ol>
           </div>
 
           <table>
@@ -1084,7 +1132,7 @@ END IONS</code></pre>
               <tr><td>Name/accession filters</td><td>Can be used to select individual proteins</td><td>Use multiple views before drawing interface conclusions.</td></tr>
             </tbody>
           </table>
-		  <p>xThe protein name filter can be used to select crosslinks involving a single or multiple proteins. To select crosslinks between proteins, use</p>
+          <p>The protein name filter can be used to select crosslinks involving a single or multiple proteins. To select crosslinks between proteins, use:</p>
 
           <div class="codebox">
             <div class="codebar">
@@ -1121,13 +1169,17 @@ SAMHD1-Roc1</code></pre>
 
           <div class="callout">
             <strong>Starting point</strong>
-            In the scan box, select scan <code>7144</code>, choose the resulting crosslink, then open <b>Views -> Spectrum</b>.
+            <ol class="callout-list">
+              <li>In the scan box, enter <code>7144</code>.</li>
+              <li>Select the resulting crosslink in the match table.</li>
+              <li>Open <b>Views -> Spectrum</b>.</li>
+              <li>Inspect precursor error, charge state, b/y ions, bold crosslinked fragments, and sequence coverage.</li>
+            </ol>
           </div>
 
           <p>In the spectrum viewer, start with precursor mass error and charge state, then inspect sequence coverage and fragment-ion support. The usual peptide backbone fragments are b ions and y ions: b ions extend from the peptide N-terminus, while y ions extend from the C-terminus. A confident assignment should not be supported by one isolated peak; it should show a coherent pattern of fragments along both peptide sequences and a majority of the spectral intensity explained.</p>
           <p>Crosslinked fragments are especially informative because they include one peptide plus the crosslinker and part or all of the partner peptide. xiview marks crosslinked fragments in bold. Move the cursor over sequence markers and peaks to use the dynamic highlighting: the viewer connects the peak, the fragment annotation, and the covered region of the sequence. Use this to ask whether the proposed crosslink site is actually supported by fragmentation or only inferred from limited coverage.</p>
-          <p>Sulfo-SDA can be cleaved in the mass spectrometer, especially when crosslinked to aspartic acid and glutamate  <li><a href="https://pubs.acs.org/doi/10.1021/acs.analchem.7b04915">Publication</a></li>. We accounted for this cleavability in the search, but the spectrum viewer does not display the cleaved crosslinker stubs by default. Inside the spectral viewer, click the wheel and then the "custom" tab, copy the following line
-  <li><a </p>
+          <p>Sulfo-SDA can be cleaved in the mass spectrometer, especially when crosslinked to aspartic acid and glutamate, as discussed by the <a href="https://pubs.acs.org/doi/10.1021/acs.analchem.7b04915" target="_blank" rel="noreferrer">Sinz group</a>. We accounted for this cleavability in the search, but the spectrum viewer does not display the cleaved crosslinker stubs by default. Inside the spectral viewer, click the wheel, open the <b>custom</b> tab, copy the following line, and press <b>Apply</b>.</p>
 
           <div class="codebox">
             <div class="codebar">
@@ -1183,7 +1235,24 @@ SAMHD1-Roc1</code></pre>
 
           <div class="callout">
             <strong>Sequence annotations</strong>
-            Upload <code>sequence_annotations.csv</code> in the sequence annotations area, then toggle annotations on. This is useful here because the proteins are recombinant and include tags from an in-house FASTA.
+            <ol class="callout-list">
+              <li>Open <b>Import -> Sequence Annotations</b>.</li>
+              <li>Upload <code>sequence_annotations.csv</code>.</li>
+              <li>Open the <b>Annotations</b> controls.</li>
+              <li>Toggle annotations on to show domains and custom sequence features.</li>
+            </ol>
+            This is useful here because the proteins are recombinant and include tags from an in-house FASTA.
+          </div>
+
+          <div class="callout">
+            <strong>Histogram and scatterplot actions</strong>
+            <ol class="callout-list">
+              <li>Use the run filter to compare <code>Ratio24</code> and <code>Ratio56</code>.</li>
+              <li>Count total links and heteromeric links in each condition.</li>
+              <li>Open <b>Views -> Histogram</b> and compare <code>frac6</code> with <code>frac9</code>.</li>
+              <li>Open <b>Views -> Scatterplot</b> and compare charge state, precursor mass, score, and, after PDB upload, distance.</li>
+              <li>Ask whether early and late SEC fractions carry different kinds of crosslinked peptides.</li>
+            </ol>
           </div>
 
           <ul class="checklist">
@@ -1202,7 +1271,16 @@ SAMHD1-Roc1</code></pre>
 
           <div class="callout">
             <strong>Main exercise</strong>
-            In <b>Import -> PDB files</b>, upload <code>state-3_fit-chains.pdb</code>. In <b>View -> 3D viewer</b>, toggle off domains and select <b>PDB aligned region</b>. Which protein is missing from the experimental structure?
+            <ol class="callout-list">
+              <li>Open <b>Import -> PDB files</b> and upload <code>state-3_fit-chains.pdb</code>.</li>
+              <li>Open <b>Views -> 3D viewer</b>.</li>
+              <li>In <b>Annotations</b>, toggle off domains and select <b>PDB aligned region</b>.</li>
+              <li>Ask which protein is missing from the experimental structure.</li>
+              <li>Open <b>Views -> Legends and Colors</b> and color crosslinks by distance.</li>
+              <li>Use cutoffs of satisfied up to 25 Angstrom, borderline 25-30 Angstrom, and violated over 30 Angstrom.</li>
+              <li>Return to the 3D viewer and compare all links with heteromeric-only links.</li>
+              <li>Monitor distance behavior in the circle plot, histogram, or scatterplot views.</li>
+            </ol>
           </div>
 
           <table>
