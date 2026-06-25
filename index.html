@@ -890,7 +890,7 @@ END IONS</code></pre>
             <ol class="callout-list">
               <li>Tick <b>Do FDR</b> for this dataset.</li>
               <li>Use <b>2%</b> FDR at the <b>residue-pair/link</b> level.</li>
-              <li>Use heteromeric-link boosting as in the original README workflow.</li>
+              <li>Tick heteromeric-link boosting. This will optimise detection of crosslinks between proteins</li>
             </ol>
           </div>
 
@@ -969,8 +969,8 @@ END IONS</code></pre>
           </div>
 
           <div class="callout danger">
-            <strong>Do not subset FDR-filtered results by score for interpretation</strong>
-            Score sliders in visualization tools are useful for inspection. For a stricter dataset, rerun xiFDR with a stricter threshold or appropriate prefilters before FDR estimation.
+            <strong>Do not subset FDR-filtered results by score for publication</strong>
+            Score sliders in visualization tools are useful for inspection. For a stricter dataset, rerun xiFDR with a stricter threshold or appropriate prefilters before FDR estimation. The FDR calculation is carried out on the whole dataset with target and decoys, and applies to the entire dataset. Its assumptions are broken down by subsetting.
           </div>
 
           <h3>Interpreting xiFDR warnings</h3>
@@ -1118,7 +1118,9 @@ END IONS</code></pre>
               <li>Right click again and resize proteins to <b>0.2</b> for a compact network view.</li>
               <li>Use the <b>self/heteromeric</b> toggles to compare all links with links between proteins.</li>
               <li>Open <b>Views -> Circular</b> to inspect the same links as a circle plot.</li>
-              <li>In the <b>Name/Acc</b> box, type <code>Vpr</code> or <code>SAMHD1-Vpr</code> to focus on the recruitment interface.</li>
+              <li>In the <b>Name/Acc</b> box, type <code>Vpr</code> or <code>SAMHD1-Vpr</code> to focus on the interface by which SAMHD1 is recruited.</li>
+			  <li>Filters combine, so make sure to clear text boxes or recheck selection boxes before applying new filters.</li>
+
             </ol>
           </div>
 
@@ -1170,8 +1172,8 @@ SAMHD1-Roc1</code></pre>
           <div class="callout">
             <strong>Starting point</strong>
             <ol class="callout-list">
-              <li>In the scan box, enter <code>7144</code>.</li>
-              <li>Select the resulting crosslink in the match table.</li>
+              <li>Reset all filters (or refresh the page) In the scan box in the bottom right, enter <code>7144</code>.</li>
+              <li>Select the resulting crosslink in the match table or by clicking on it in the main view.</li>
               <li>Open <b>Views -> Spectrum</b>.</li>
               <li>Inspect precursor error, charge state, b/y ions, bold crosslinked fragments, and sequence coverage.</li>
             </ol>
@@ -1241,7 +1243,7 @@ SAMHD1-Roc1</code></pre>
               <li>Open the <b>Annotations</b> controls.</li>
               <li>Toggle annotations on to show domains and custom sequence features.</li>
             </ol>
-            This is useful here because the proteins are recombinant and include tags from an in-house FASTA.
+            This is useful to annotate specific domains and regions.
           </div>
 
           <div class="callout">
@@ -1273,13 +1275,17 @@ SAMHD1-Roc1</code></pre>
             <strong>Main exercise</strong>
             <ol class="callout-list">
               <li>Open <b>Import -> PDB files</b> and upload <code>state-3_fit-chains.pdb</code>.</li>
+              <li>In the bottom, click on the Ø toggle to show all crosslinks, not only the ones between regions in the structure</li>
               <li>Open <b>Views -> 3D viewer</b>.</li>
+              <li>In the 3d viewer, click "all proteins"</li>
               <li>In <b>Annotations</b>, toggle off domains and select <b>PDB aligned region</b>.</li>
-              <li>Ask which protein is missing from the experimental structure.</li>
+              <li>Check out which protein is missing from the experimental structure.</li>
               <li>Open <b>Views -> Legends and Colors</b> and color crosslinks by distance.</li>
               <li>Use cutoffs of satisfied up to 25 Angstrom, borderline 25-30 Angstrom, and violated over 30 Angstrom.</li>
               <li>Return to the 3D viewer and compare all links with heteromeric-only links.</li>
               <li>Monitor distance behavior in the circle plot, histogram, or scatterplot views.</li>
+			  <li>In the 3d viewer, click on export->ChimeraX pseudobonds to export to chimerax keeping custom coloring.</li>
+
             </ol>
           </div>
 
