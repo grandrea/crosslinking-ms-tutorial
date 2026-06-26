@@ -1441,16 +1441,20 @@ SAMHD1-Roc1</code></pre>
           <p><a href="https://wenmr.science.uu.nl/disvis/" target="_blank" rel="noreferrer">DisVis</a> is designed for restraint-driven exploration rather than producing a single final model. Given two macromolecular partners and a set of distance restraints, it systematically searches the relative translations and rotations of one partner against the other. The output describes which regions of space are compatible with the restraints and how many restraints are satisfied or violated at each location.</p>
           <p>For this course, precomputed DisVis outputs for localizing Vpr are available in the <code>disvis</code> folder of the <a href="https://drive.google.com/drive/folders/1P5WDwfDGmUzZPOy35eC9pzqVHvLYQWO1?usp=sharing" target="_blank" rel="noreferrer">course Google Drive package</a>. Use those files when the aim is to learn interpretation rather than spend tutorial time waiting for a webserver run to finish.</p>
           <p>This is useful when crosslinking MS suggests where a missing or flexible domain could be, but the data are not sufficient to define a unique structure. In this tutorial, DisVis is used to locate the viral recruitment interface: the circle plot points to a stable interaction between Vpr and the C-terminus of SAMHD1, while the rest of SAMHD1 behaves flexibly. DisVis lets you ask where a SAMHD1 C-terminal model could be placed around Vpr or the ligase complex while satisfying the crosslink restraints.</p>
-          <p>The practical setup is to choose one structure as the fixed partner, for example the Vpr-containing Cullin4 complex, and one structure as the scanning partner, for example a model of the SAMHD1 C-terminal region. Convert the relevant residue-pair crosslinks into distance restraints according to the DisVis format (found in the google drive), choose a distance cutoff appropriate for the crosslinker and structural uncertainty, then let DisVis sample possible positions of the scanning partner. The resulting density reports accessible interaction space: positions that satisfy more restraints receive higher support. It is not experimental electron density, and it does not prove that every allowed position is occupied.</p>
+          <p>For the precomputed run in the Google Drive folder, DisVis was run with a peptide representing the SAMHD1 C-terminus as the scanning chain and the state 3 Cullin4-Vpr structure as the fixed chain. The relevant residue-pair crosslinks were converted into DisVis distance restraints, and DisVis sampled possible positions of the scanning peptide around the fixed complex. The resulting density reports accessible interaction space: positions that satisfy more restraints receive higher support. It is not experimental electron density, and it does not prove that every allowed position is occupied.</p>
           <p>For the biological interpretation, compare the DisVis-accessible space with the xiview circle plot and the half-link 3D view. A focused accessible space near Vpr supports a stable SAMHD1 C-terminal recruitment site. Broad half-link coverage over the rest of the complex supports the idea that the remaining SAMHD1 body is flexible, which explains why it can leave crosslinking evidence without appearing as a well-resolved cryo-EM density.</p>
           <p>The DisVis server documentation recommends citing the DisVis webserver and method papers listed on the <a href="https://wenmr.science.uu.nl/disvis/" target="_blank" rel="noreferrer">DisVis portal</a>. It is a great tool to identify "patches" in protein complexes to which other proteins bind to. The software can also be installed locally from the linked DisVis GitHub repository when webserver use is not appropriate.</p>
 
-          <details open>
-            <summary>Tutorial: inspect a DisVis density in ChimeraX</summary>
-            <div>
-              Download the precomputed Vpr-localization results from the Drive <code>disvis</code> folder, then open the DisVis <code>.mrc</code> map together with the relevant structural model in ChimeraX. The map is not cryo-EM density. It is a restraint-satisfaction volume: at each grid position, the value reports how many crosslink restraints can be satisfied when the scanning partner is placed there. Raise and lower the map threshold to ask how strict the localization is. A high threshold shows only positions satisfying many restraints; a lower threshold shows broader compatible space. Use this to connect the DisVis output back to the biological question: where can Vpr or the recruited SAMHD1 region be placed while remaining consistent with the crosslinking evidence?
-            </div>
-          </details>
+          <div class="callout">
+            <strong>Inspect the precomputed DisVis map</strong>
+            <ol class="callout-list">
+              <li>Open ChimeraX with <code>state-3_fit-chains.pdb</code>.</li>
+              <li>From the Google Drive <code>disvis</code> folder, load <code>accessible_interaction_space.mrc</code>.</li>
+              <li>Use the volume threshold slider to raise and lower the required number of satisfied restraints.</li>
+              <li>Watch how the possible center-of-mass positions localize as the threshold increases.</li>
+              <li>Interpret high-threshold density as the most constrained compatible space for the SAMHD1 C-terminal peptide, not as cryo-EM density.</li>
+            </ol>
+          </div>
 
           <div class="codebox">
             <div class="codebar">
@@ -1458,10 +1462,19 @@ SAMHD1-Roc1</code></pre>
               <button class="copy" type="button" data-copy>Copy</button>
             </div>
             <pre><code>open state-3_fit-chains.pdb
-open disvis/&lt;downloaded-disvis-map&gt;.mrc
+open disvis/accessible_interaction_space.mrc
 volume #2 level 4
 transparency #2 55</code></pre>
           </div>
+
+          <figure class="annotated-figure">
+            <div class="figure-frame">
+              <img src="disvis_quickScan.png" alt="DisVis quick scan showing localization of accessible interaction space as satisfied-restraint threshold increases">
+            </div>
+            <figcaption>
+              DisVis quick scan for the SAMHD1 C-terminal peptide against the state 3 complex. Increasing the threshold restricts the possible center-of-mass positions to locations satisfying more crosslink restraints.
+            </figcaption>
+          </figure>
 		  
           <div class="codebox">
             <div class="codebar">
