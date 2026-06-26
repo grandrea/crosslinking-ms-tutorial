@@ -1,3 +1,13 @@
+# Crosslinking MS data analysis for structural biology using the xi pipeline
+
+The tutorial is hosted at this website:
+
+**[Open the crosslinking MS tutorial website](https://grandrea.github.io/crosslinking-ms-tutorial/)**
+
+---
+
+> **Note:** The text below is the original draft of the tutorial, used in an EMBO course in 2024 and in the Erice School of Strucutural Biology in 2026. It is kept here for reference, but the maintained, more complete (and much nicer!) version is now the website linked above.
+
 ## Crosslinking MS tutorial- crosslink visualization
 
 
