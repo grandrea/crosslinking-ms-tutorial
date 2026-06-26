@@ -1314,7 +1314,18 @@ SAMHD1-Roc1</code></pre>
             <h2>Map crosslinks to PDB structures</h2>
             <p>Upload a PDB file into xiview, switch to the 3D viewer, and evaluate whether crosslinks are compatible with the structural model. Keep the biological story in mind: Vpr provides the viral handle on the Cullin4 ligase, while SAMHD1 appears to contact Vpr through its C-terminus and remains flexible elsewhere.</p>
           </div>
-
+		  
+          <div class="callout warning">
+            <strong>Interpretation: three kinds of ambiguity</strong>
+            <p>Crosslinks are powerful restraints, but they are not single unambiguous distance measurements. For a detailed treatment of these ambiguity in modeling, see  <a href="https://www.mcponline.org/article/S1535-9476(20)34833-7/fulltext" target="_blank" rel="noreferrer">This publication </a> and especially the supplementary material. Keep three ambiguity layers separate when building a model:</p>
+            <ol class="callout-list">
+              <li><b>Identification ambiguity</b>: the match itself may be wrong. This is the false-discovery-rate problem controlled by xiFDR, and it is why structural conclusions should use FDR-controlled residue pairs supported by convincing spectra.</li>
+              <li><b>Composition ambiguity</b>: a self link is not automatically a homomeric link. It may come from two copies of the same protein in a complex, from the same peptide sequence present in different proteins or isoforms, or from an intramolecular contact within one chain.</li>
+              <li><b>Conformational ambiguity</b>: a valid crosslink can report one member of a flexible conformational ensemble rather than the single state shown in a PDB file. Overlength links can therefore indicate flexibility, missing domains, alternative states, or model incompleteness rather than a failed experiment.</li>
+            </ol>
+            <p>This distinction is central to integrative interpretation of XL-MS data; see <a href="https://pubmed.ncbi.nlm.nih.gov/30582701/" target="_blank" rel="noreferrer">PubMed 30582701</a> and <a href="https://pubmed.ncbi.nlm.nih.gov/32829152/" target="_blank" rel="noreferrer">PubMed 32829152</a> for background on ambiguity and ensemble-aware structural interpretation.</p>
+          </div>
+		  
           <div class="callout">
             <strong>Main exercise</strong>
             <ol class="callout-list">
@@ -1416,12 +1427,19 @@ SAMHD1-Roc1</code></pre>
               <li>Repeat the mapping for <code>state-2_fit-chains.pdb</code>, <code>state-3_fit-chains.pdb</code>, <code>state-4_fit-chains.pdb</code>, and the AlphaFold3 model <code>fold_cullin_samhd1_alphafold3_model_0.cif</code>. Compare which restraints are stable and which are model- or conformation-dependent.</li>
             </ol>
           </div>
-
+          <div class="codebox">
+            <div class="codebar">
+              <span>Color AlphaFold confidence in ChimeraX</span>
+              <button class="copy" type="button" data-copy>Copy</button>
+            </div>
+            <pre><code>color bfactor palette alphafold</code></pre>
+          </div>
           <details>
             <summary>Check: why move to ChimeraX?</summary>
             <div>
               Use ChimeraX when you need density maps, multiple structural states, better control over rendering, or X-MAS export and mapping tools beyond xiview's browser workflow.
             </div>
+
           </details>
 
           <ul class="checklist">
@@ -1476,24 +1494,6 @@ transparency #2 55</code></pre>
             </figcaption>
           </figure>
 		  
-          <div class="codebox">
-            <div class="codebar">
-              <span>Color AlphaFold confidence in ChimeraX</span>
-              <button class="copy" type="button" data-copy>Copy</button>
-            </div>
-            <pre><code>color bfactor palette alphafold</code></pre>
-          </div>
-
-          <div class="callout warning">
-            <strong>Interpretation: three kinds of ambiguity</strong>
-            <p>Crosslinks are powerful restraints, but they are not single unambiguous distance measurements. Keep three ambiguity layers separate when building a model:</p>
-            <ol class="callout-list">
-              <li><b>Identification ambiguity</b>: the match itself may be wrong. This is the false-discovery-rate problem controlled by xiFDR, and it is why structural conclusions should use FDR-controlled residue pairs supported by convincing spectra.</li>
-              <li><b>Composition ambiguity</b>: a self link is not automatically a homomeric link. It may come from two copies of the same protein in a complex, from the same peptide sequence present in different proteins or isoforms, or from an intramolecular contact within one chain.</li>
-              <li><b>Conformational ambiguity</b>: a valid crosslink can report one member of a flexible conformational ensemble rather than the single state shown in a PDB file. Overlength links can therefore indicate flexibility, missing domains, alternative states, or model incompleteness rather than a failed experiment.</li>
-            </ol>
-            <p>This distinction is central to integrative interpretation of XL-MS data; see <a href="https://pubmed.ncbi.nlm.nih.gov/30582701/" target="_blank" rel="noreferrer">PubMed 30582701</a> and <a href="https://pubmed.ncbi.nlm.nih.gov/32829152/" target="_blank" rel="noreferrer">PubMed 32829152</a> for background on ambiguity and ensemble-aware structural interpretation.</p>
-          </div>
 
           <h3>Other modeling approaches</h3>
           <p><a href="https://colab.research.google.com/github/Rappsilber-Laboratory/AlphaLink2/blob/main/notebooks/alphalink2.ipynb" target="_blank" rel="noreferrer">AlphaLink</a>, <a href="https://integrativemodeling.org/" target="_blank" rel="noreferrer">IMP</a>, <a href="https://www.embl-hamburg.de/Assembline/" target="_blank" rel="noreferrer">Assembline</a>, and <a href="https://wenmr.science.uu.nl/haddock2.4/" target="_blank" rel="noreferrer">HADDOCK</a> provide alternative routes for model building with restraints. They differ in how explicitly they model uncertainty, sampling, scoring, and prior structural information. The correct tool depends on whether the question is exploratory, docking-like, integrative, or prediction-oriented.</p>
