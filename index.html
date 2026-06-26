@@ -1352,7 +1352,7 @@ SAMHD1-Roc1</code></pre>
           <details>
             <summary>Exercise: SAMHD1 flexibility with half links</summary>
             <div>
-              After identifying the C-terminal Vpr interaction in the circle plot, return to the 3D viewer, select SAMHD1 links, toggle off self links, and display residues with half links. These half links show that the rest of SAMHD1 visits many positions on the complex rather than forming one rigid, resolved interface. An AlphaFold3 model for the full SAMHD1-containing assembly is available in the google drive, upload it and compare the placement of SAMHD1 with the half-link pattern. The AF3 placement is somewhat consistent with the half links, but many crosslinks will be overlength because SAMHD1 is flexible in solution rather than locked into one static pose. This flexibility is a plausible reason why much of SAMHD1 is not visible in the cryo-EM density.
+              After identifying the C-terminal Vpr interaction in the circle plot, return to the 3D viewer, select SAMHD1 links, toggle off self links, and display residues with half links. These half links show that the rest of SAMHD1 visits many positions on the complex rather than forming one rigid, resolved interface. An AlphaFold3 model for the full SAMHD1-containing assembly is available in the google drive as <code>fold_cullin_samhd1_alphafold3_model_0.cif</code>; upload it and compare the placement of SAMHD1 with the half-link pattern. The AF3 placement is somewhat consistent with the half links, but many crosslinks will be overlength because SAMHD1 is flexible in solution rather than locked into one static pose. This flexibility is a plausible reason why much of SAMHD1 is not visible in the cryo-EM density.
             </div>
           </details>
 
@@ -1382,20 +1382,39 @@ SAMHD1-Roc1</code></pre>
             <a class="button" href="https://www.biorxiv.org/content/10.1101/2022.04.21.489026v2" target="_blank" rel="noreferrer">X-MAS reference</a>
           </div>
 
-          <ol>
-            <li>Open ChimeraX and load the course <code>session.cxs</code>.</li>
-            <li>Install X-MAS via <b>Tools -> More Tools</b>.</li>
-            <li>Open <b>Tools -> Structure Analysis -> XMAS</b>.</li>
-            <li>Import the peptide-pairs result file, select the state 2 PDB, and map crosslinks.</li>
-            <li>Visualize, color by distance, or export to tools such as DisVis.</li>
-          </ol>
+          <div class="callout">
+            <strong>Start from the xiview export</strong>
+            <ol class="callout-list">
+              <li>Open ChimeraX.</li>
+              <li>Open only <code>state-3_fit-chains.pdb</code>.</li>
+              <li>Open the ChimeraX pseudobond file exported previously from xiview.</li>
+              <li>Run the command below to draw pseudobonds as continuous lines rather than dashes.</li>
+              <li>Inspect the same distance-colored crosslinks outside the browser viewer.</li>
+            </ol>
+          </div>
 
           <div class="codebox">
             <div class="codebar">
-              <span>ChimeraX command</span>
+              <span>ChimeraX pseudobond display</span>
               <button class="copy" type="button" data-copy>Copy</button>
             </div>
-            <pre><code>style pbonds dashes 0</code></pre>
+            <pre><code>pbonds style dashes 0</code></pre>
+          </div>
+
+          <p>The xiview export is the fastest route because xiview has already handled the residue mapping. You can also work from scratch in ChimeraX with X-MAS, provided the residue numbering in the structure and the xiFDR table align. This alignment step is automatic in xiview, but in ChimeraX/X-MAS you need to make sure the PDB numbering and protein identifiers match the result file.</p>
+
+          <div class="callout">
+            <strong>Work from scratch with X-MAS</strong>
+            <ol class="callout-list">
+              <li>Close ChimeraX and reopen it so you start from a clean session.</li>
+              <li>Open the course <code>session.cxs</code>.</li>
+              <li>Display only the <code>state-3_fit-chains.pdb</code> model before mapping crosslinks.</li>
+              <li>Install X-MAS via <b>Tools -> More Tools</b> if it is not already installed.</li>
+              <li>Open <b>Tools -> Structure Analysis -> XMAS</b>.</li>
+              <li>In X-MAS, load <code>Cullin_SDA_1pcRes_MinCoverage_4frag_PeptidePairs_xiFDR2.0.csv</code>.</li>
+              <li>Map the crosslinks to the visible <code>state-3_fit-chains.pdb</code> structure and inspect distance behavior.</li>
+              <li>Repeat the mapping for <code>state-2_fit-chains.pdb</code>, <code>state-3_fit-chains.pdb</code>, <code>state-4_fit-chains.pdb</code>, and the AlphaFold3 model <code>fold_cullin_samhd1_alphafold3_model_0.cif</code>. Compare which restraints are stable and which are model- or conformation-dependent.</li>
+            </ol>
           </div>
 
           <details>
