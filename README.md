@@ -1,3 +1,13 @@
+# Crosslinking MS Tutorial
+
+This tutorial has been adapted into a dedicated website:
+
+**[Open the crosslinking MS tutorial website](https://grandrea.github.io/crosslinking-ms-tutorial/)**
+
+---
+
+> **Note:** The text below is the original draft of the tutorial. It is kept here for reference, but the maintained and more complete version is now the website linked above.
+
 ## Crosslinking MS tutorial- crosslink visualization
 
 
